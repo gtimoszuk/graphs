@@ -1,0 +1,20 @@
+apply plugin: 'war'
+
+dependencies {
+	compile project (':graphs-api')
+        testCompile junitDep
+	
+	compile springWebDep		
+	compile springContextDep	
+	compile springBeansDep		
+	compile springCoreDep		
+	compile springAopDep		
+
+	
+	compile neo4jDep		
+	compile neo4jGraphMatchingDep 	
+	compile neo4jAdvancedDep	
+	compile neo4jKernelDep		
+	compile neo4jAlgoDep		
+}
+ 

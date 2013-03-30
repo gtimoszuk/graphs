@@ -1,4 +1,3 @@
-apply plugin: 'war'
 
 dependencies {
 	compile project (':graphs-api')
@@ -10,11 +9,26 @@ dependencies {
 	compile springCoreDep		
 	compile springAopDep		
 
-	
 	compile neo4jDep		
 	compile neo4jGraphMatchingDep 	
 	compile neo4jAdvancedDep	
 	compile neo4jKernelDep		
-	compile neo4jAlgoDep		
+	compile neo4jAlgoDep
+	compile neo4jCypherDep
+	
+	compile blueprintsNeo4jDep	
+	compile blueprintsNeo4jBatchDep	
+	compile blueprintsCoreDep	
+	compile blueprintsJungDep	
+	compile gremlinGroovyDep	
+	compile gremlinJavaDep		
+
+	testCompile bluepringsTestsDep	
+	
+	compile logbackClassicDep	
+	compile slf4jApiDep
+	
+	compile groovyDep
+	compile asmDep
 }
  

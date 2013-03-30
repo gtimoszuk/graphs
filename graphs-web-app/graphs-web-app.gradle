@@ -1,0 +1,25 @@
+sourceSets.main.java.srcDir 'src/main/webapp'
+
+
+apply plugin: 'war'
+apply plugin: 'eclipse-wtp'
+
+dependencies {
+	compile project (':graphs-api')
+        testCompile junitDep
+	
+	compile springWebDep	
+	compile springContextDep	
+	compile springBeansDep	
+	compile springCoreDep	
+	compile springAopDep	
+	compile springWebMVCDep
+	
+	compile freemarkerDep
+	
+	compile logbackClassicDep	
+	compile slf4jApiDep
+	
+	compile groovyDep
+	compile asmDep
+} 

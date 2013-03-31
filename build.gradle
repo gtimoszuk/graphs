@@ -1,0 +1,26 @@
+project.ext.version = "0.1"
+
+subprojects {
+	sourceCompatibility = JavaVersion.VERSION_1_6
+        apply plugin: 'eclipse'
+        apply plugin: 'groovy'
+       
+	configurations {
+	  all*.exclude group: "commons-logging", module: "commons-logging"
+	  all*.exclude group: 'log4j'
+	}
+       
+        repositories {
+                mavenLocal()
+                mavenCentral()
+                mavenRepo urls: "http://repository.jboss.org/maven2-brew/"
+                mavenRepo urls: "http://repository.jboss.com/maven2/"
+                mavenRepo urls: "http://tinkerpop.com/maven2"
+
+
+        }
+        
+	
+}
+
+

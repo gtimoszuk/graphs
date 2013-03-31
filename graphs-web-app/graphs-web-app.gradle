@@ -6,6 +6,7 @@ apply plugin: 'eclipse-wtp'
 
 dependencies {
 	compile project (':graphs-api')
+	compile project (':graphs')
         testCompile junitDep
 	
 	compile springWebDep	
@@ -14,6 +15,7 @@ dependencies {
 	compile springCoreDep	
 	compile springAopDep	
 	compile springWebMVCDep
+	compile springContextSupportDep
 	
 	compile freemarkerDep
 	
@@ -22,4 +24,7 @@ dependencies {
 	
 	compile groovyDep
 	compile asmDep
+	
+	testCompile jettyDep
+	testCompile jettyWebAppDep
 } 

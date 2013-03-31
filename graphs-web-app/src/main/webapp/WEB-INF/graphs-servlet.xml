@@ -3,7 +3,8 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xmlns:security="http://www.springframework.org/schema/security"
 
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/security
@@ -15,10 +16,11 @@
 		http://www.springframework.org/schema/mvc
 		http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
 
-	<!-- <context:component-scan base-package="com.bulls.kantor.customer" /> 
-		<context:component-scan base-package="com.bulls.kantor.webapp" /> -->
+	<!-- <context:component-scan base-package="com.bulls.kantor.customer" /> -->
+	<context:component-scan base-package="pl.edu.mimuw.graphs.controller" />
 
 	<mvc:annotation-driven />
+
 	<mvc:resources mapping="/css/**" location="/resources/css/" />
 	<mvc:resources mapping="/img/**" location="/resources/img/" />
 	<mvc:resources mapping="/js/**" location="/resources/js/" />
@@ -64,8 +66,9 @@
 		<property name="requestContextAttribute" value="rc" />
 		<property name="exposeSpringMacroHelpers" value="true" />
 	</bean>
-	
-	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
 		<property name="useDefaultSuffixPattern" value="false" />
 	</bean>
 
@@ -76,18 +79,9 @@
 		<property name="defaultLocale" value="pl" />
 	</bean>
 
-<!--
-	<bean id="localeChangeInterceptor"
-		class="com.bulls.kantor.webapp.i18n.LocaleInterceptor">
-		<property name="paramName" value="lang" />
-	</bean>
-
-	<mvc:interceptors>
-		<mvc:interceptor>
-			<mvc:mapping path="/**" />
-			<ref bean="localeChangeInterceptor" />
-		</mvc:interceptor>
-	</mvc:interceptors>
--->
+	<!-- <bean id="localeChangeInterceptor" class="com.bulls.kantor.webapp.i18n.LocaleInterceptor"> 
+		<property name="paramName" value="lang" /> </bean> <mvc:interceptors> <mvc:interceptor> 
+		<mvc:mapping path="/**" /> <ref bean="localeChangeInterceptor" /> </mvc:interceptor> 
+		</mvc:interceptors> -->
 
 </beans>

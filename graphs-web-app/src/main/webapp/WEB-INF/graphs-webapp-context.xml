@@ -8,8 +8,9 @@
 		http://www.springframework.org/schema/security
 		http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 		
+	<import resource="classpath:pl/edu/mimuw/graphs/conf/graphs-context.xml" />
 	<!-- ładownie beanów
-	<import resource="classpath:application-common-context.xml" />
+	
 	<import resource="classpath:customer-application-context.xml" />
 	 -->
 </beans>

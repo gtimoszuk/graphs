@@ -2,6 +2,7 @@
 dependencies {
 	compile project (':graphs-api')
         testCompile junitDep
+        testCompile springTestDep
 	
 	compile springWebDep		
 	compile springContextDep	
@@ -17,7 +18,7 @@ dependencies {
 	compile neo4jCypherDep
 	
 	compile blueprintsNeo4jDep	
-	compile blueprintsNeo4jBatchDep	
+//	compile blueprintsNeo4jBatchDep	
 	compile blueprintsCoreDep	
 	compile blueprintsJungDep	
 	compile gremlinGroovyDep	
@@ -30,5 +31,6 @@ dependencies {
 	
 	compile groovyDep
 	compile asmDep
+	compile guavaDep
 }
  

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
           http://www.springframework.org/schema/aop
          http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+	<aop:aspectj-autoproxy />
 
 	<bean id="Graphs.Properties.Locations" class="java.util.ArrayList">
 		<constructor-arg>
@@ -15,8 +17,27 @@
 		</constructor-arg>
 	</bean>
 
-	<bean id="Graphs.PrpropertyConfigurer"
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	<bean id="Graphs.PropertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations" ref="Graphs.Properties.Locations" />
+		<property name="properties">
+			<props>
+				<prop key="projectDataDir">/home/graphs/projects/</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="Graphs.PathResolvingService" class="pl.edu.mimuw.graphs.services.util.PathResolvingServiceImpl">
+		<property name="dbDirSuffix" value="${dbDirSuffix}" />
+		<property name="gitRepoSuffix" value="${gitRepoSuffix}" />
+		<property name="projectDirPrefix" value="${projectDataDir}" />
+	</bean>
+
+	<bean id="Graphs.GitService" class="pl.edu.mimuw.graphs.services.util.GitSupportServiceImpl">
+		<property name="dirResolvingService" ref="Graphs.PathResolvingService"/>
+	</bean>
+	
+	<bean id="Graphs.ProjectPropertiesService" class = "pl.edu.mimuw.graphs.services.util.ProjectPropertiesServiceImpl">
+		<property name="pathResolvingService" ref="Graphs.PathResolvingService"/>
+		<property name="projectBuildToolPropertyName" value="${projectBuildToolPropertyName}"/>
 	</bean>
 </beans>

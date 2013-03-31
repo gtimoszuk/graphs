@@ -9,7 +9,10 @@ dependencies {
 	compile springBeansDep		
 	compile springCoreDep		
 	compile springAopDep		
-
+	compile aspectjWeaverDep
+	compile sspectjRTDep
+	
+	
 	compile neo4jDep		
 	compile neo4jGraphMatchingDep 	
 	compile neo4jAdvancedDep	
@@ -32,5 +35,6 @@ dependencies {
 	compile groovyDep
 	compile asmDep
 	compile guavaDep
+	compile jgitDep
 }
  

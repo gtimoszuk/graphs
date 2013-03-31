@@ -8,12 +8,25 @@
 
 	<import resource="classpath:pl/edu/mimuw/graphs/conf/graphs-context.xml" />
 
+
+
+	<bean id="Graphs.PropertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations" ref="Graphs.Properties.Locations" />
+		<property name="properties">
+			<props>
+				<prop key="projectDataDir">#{"/tmp/graphs-" + T(java.util.Calendar).getInstance().getTime().toString() + "/"}</prop>
+			</props>
+		</property>
+	</bean>
+
 	<bean id="Graphs.Properties.Locations" class="java.util.ArrayList">
 		<constructor-arg>
 			<list>
 				<value>classpath:pl/edu/mimuw/graphs/conf/graphs.properties</value>
 				<value>file:/home/graphs/conf/graphs.properties</value>
-				<value>classpath:pl/edu/mimuw/graphs/conf/graphs-test.properties</value>
+				<value>classpath:pl/edu/mimuw/graphs/conf/graphs-test.properties
+				</value>
 
 			</list>
 		</constructor-arg>

@@ -26,4 +26,20 @@ public class ProjectBuilderServiceImpl implements ProjectBuilderService {
 		}
 		targetBuilder.buildProject(projectName);
 	}
+
+	public Map<ProjectBuildTool, ProjectBuilderService> getBuilders() {
+		return builders;
+	}
+
+	public void setBuilders(Map<ProjectBuildTool, ProjectBuilderService> builders) {
+		this.builders = builders;
+	}
+
+	public ProjectPropertiesService getProjectPropertiesService() {
+		return projectPropertiesService;
+	}
+
+	public void setProjectPropertiesService(ProjectPropertiesService projectPropertiesService) {
+		this.projectPropertiesService = projectPropertiesService;
+	}
 }

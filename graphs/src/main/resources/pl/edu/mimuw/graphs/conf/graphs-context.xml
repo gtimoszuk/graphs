@@ -33,11 +33,47 @@
 	</bean>
 
 	<bean id="Graphs.GitService" class="pl.edu.mimuw.graphs.services.util.GitSupportServiceImpl">
-		<property name="dirResolvingService" ref="Graphs.PathResolvingService"/>
+		<property name="dirResolvingService" ref="Graphs.PathResolvingService" />
 	</bean>
-	
-	<bean id="Graphs.ProjectPropertiesService" class = "pl.edu.mimuw.graphs.services.util.ProjectPropertiesServiceImpl">
-		<property name="pathResolvingService" ref="Graphs.PathResolvingService"/>
-		<property name="projectBuildToolPropertyName" value="${projectBuildToolPropertyName}"/>
+
+	<bean id="Graphs.ProjectPropertiesService" class="pl.edu.mimuw.graphs.services.util.ProjectPropertiesServiceImpl">
+		<property name="pathResolvingService" ref="Graphs.PathResolvingService" />
+		<property name="projectBuildToolPropertyName" value="${projectBuildToolPropertyName}" />
+	</bean>
+
+	<bean id="Graphs.Maven2Builder" class="pl.edu.mimuw.graphs.services.util.builders.MavenEclipseProjectBuilder">
+		<property name="customPomLocationProperty" value="${customPomLocationProperty}" />
+		<property name="mvnCommand" value="${maven2Command}" />
+		<property name="pathResolvingService" ref="Graphs.PathResolvingService" />
+		<property name="projectPropertiesService" ref="Graphs.ProjectPropertiesService" />
+	</bean>
+
+	<bean id="Graphs.Maven3Builder" class="pl.edu.mimuw.graphs.services.util.builders.MavenEclipseProjectBuilder">
+		<property name="customPomLocationProperty" value="${customPomLocationProperty}" />
+		<property name="mvnCommand" value="${maven3Command}" />
+		<property name="pathResolvingService" ref="Graphs.PathResolvingService" />
+		<property name="projectPropertiesService" ref="Graphs.ProjectPropertiesService" />
+	</bean>
+
+	<bean id="MVN2" class="pl.edu.mimuw.graphs.services.util.builders.ProjectBuildTool" factory-method="valueOf">
+		<constructor-arg>
+			<value>MVN</value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="MVN3" class="pl.edu.mimuw.graphs.services.util.builders.ProjectBuildTool" factory-method="valueOf">
+		<constructor-arg>
+			<value>MVN3</value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="Graphs.ProjectBuilderService" class="pl.edu.mimuw.graphs.services.util.builders.ProjectBuilderServiceImpl">
+		<property name="projectPropertiesService" ref="Graphs.ProjectPropertiesService" />
+		<property name="builders">
+			<map>
+				<entry key-ref="MVN2" value-ref="Graphs.Maven2Builder" />
+				<entry key-ref="MVN3" value-ref="Graphs.Maven3Builder" />
+			</map>
+		</property>
 	</bean>
 </beans>

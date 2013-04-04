@@ -2,9 +2,20 @@ package pl.edu.mimuw.graphs.services.util.builders;
 
 public enum ProjectBuildTool {
 
-	MVN, MVN3;
+	MVN("Maven 2"), MVN3("Maven 3");
+
+	private String toolName;
 
 	ProjectBuildTool() {
 
 	}
+
+	ProjectBuildTool(String toolName) {
+		this.toolName = toolName;
+	}
+
+	public String getToolName() {
+		return toolName;
+	}
+
 }

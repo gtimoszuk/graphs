@@ -21,7 +21,7 @@
 		<property name="locations" ref="Graphs.Properties.Locations" />
 		<property name="properties">
 			<props>
-				<prop key="projectDataDir">/home/graphs/projects/</prop>
+				<prop key="projectDataDir">${projectDataDir}</prop>
 			</props>
 		</property>
 	</bean>
@@ -75,5 +75,9 @@
 				<entry key-ref="MVN3" value-ref="Graphs.Maven3Builder" />
 			</map>
 		</property>
+	</bean>
+	
+	<bean id="Graphs.ProjectService" class="pl.edu.mimuw.graphs.services.projects.ProjectServiceImpl">
+		<property name="projectsDirPath" value="${projectDataDir}"></property>
 	</bean>
 </beans>

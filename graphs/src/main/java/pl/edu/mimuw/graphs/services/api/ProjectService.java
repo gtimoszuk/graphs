@@ -3,6 +3,8 @@ package pl.edu.mimuw.graphs.services.api;
 import java.util.List;
 import java.util.Map;
 
+import pl.edu.mimuw.graphs.exceptions.GraphsException;
+
 /**
  * Interface for basic interactions with projects
  * 
@@ -26,8 +28,9 @@ public interface ProjectService {
 	 * Method returns list of existing projects
 	 * 
 	 * @return
+	 * @throws GraphsException
 	 */
-	List<String> listProjectNames();
+	List<String> listProjectNames() throws GraphsException;
 
 	/**
 	 * Method tries to remove project

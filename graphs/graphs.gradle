@@ -5,11 +5,23 @@ dependencies {
 	
 	compile logbackClassicDep	
 	compile slf4jApiDep
+	compile javatuplesDep
+	compile commonsMathDep
 	
 	compile groovyDep
 	compile asmDep
 	compile guavaDep
 	compile jgitDep
+	
+	compile blueprintsNeo4jDep
+	compile blueprintsCoreDep
+	compile bluepringsTestsDep
+	compile blueprintsJungDep
+	
+	compile gremlinJavaDep
+	compile gremlinGroovyDep
+	
+	compile jungAlgoDep
 	
 	compile springContextDep
 	compile springContextSupportDep

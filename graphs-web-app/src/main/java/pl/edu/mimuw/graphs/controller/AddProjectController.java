@@ -18,8 +18,8 @@ import pl.edu.mimuw.graphs.controller.util.AbstractGraphController;
 import pl.edu.mimuw.graphs.exceptions.GraphsException;
 import pl.edu.mimuw.graphs.forms.CreateProjectForm;
 import pl.edu.mimuw.graphs.services.api.ProjectService;
-import pl.edu.mimuw.graphs.services.util.builders.ProjectBuildTool;
-import pl.edu.mimuw.graphs.services.util.builders.RevisionControlSystem;
+import pl.edu.mimuw.graphs.services.projects.ProjectBuildTool;
+import pl.edu.mimuw.graphs.services.projects.RevisionControlSystem;
 
 @Controller
 public class AddProjectController extends AbstractGraphController {

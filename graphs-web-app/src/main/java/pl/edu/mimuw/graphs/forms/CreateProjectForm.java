@@ -20,8 +20,6 @@ public class CreateProjectForm {
 	public Map<String, String> toMap() {
 		Map<String, String> result = new HashMap<String, String>();
 
-		// result.put();
-
 		return result;
 	}
 

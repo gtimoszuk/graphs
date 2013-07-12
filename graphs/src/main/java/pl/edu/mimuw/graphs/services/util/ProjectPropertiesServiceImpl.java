@@ -11,7 +11,7 @@ import pl.edu.mimuw.graphs.exceptions.GraphsException;
 import pl.edu.mimuw.graphs.exceptions.InvalidDataExcetion;
 import pl.edu.mimuw.graphs.exceptions.ProjectPropertiesService;
 import pl.edu.mimuw.graphs.services.api.PathResolvingService;
-import pl.edu.mimuw.graphs.services.util.builders.ProjectBuildTool;
+import pl.edu.mimuw.graphs.services.projects.ProjectBuildTool;
 
 import com.google.common.base.Strings;
 

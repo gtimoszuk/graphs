@@ -1,6 +1,6 @@
 package pl.edu.mimuw.graphs.exceptions;
 
-import pl.edu.mimuw.graphs.services.util.builders.ProjectBuildTool;
+import pl.edu.mimuw.graphs.services.projects.ProjectBuildTool;
 
 /**
  * Simple interface for resolving project properties

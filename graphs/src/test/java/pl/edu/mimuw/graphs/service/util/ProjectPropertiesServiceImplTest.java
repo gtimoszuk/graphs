@@ -16,7 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import pl.edu.mimuw.graphs.exceptions.GraphsException;
 import pl.edu.mimuw.graphs.exceptions.ProjectPropertiesService;
 import pl.edu.mimuw.graphs.services.api.PathResolvingService;
-import pl.edu.mimuw.graphs.services.util.builders.ProjectBuildTool;
+import pl.edu.mimuw.graphs.services.projects.ProjectBuildTool;
 import pl.edu.mimuw.graphs.test.BaseTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)

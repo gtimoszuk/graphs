@@ -1,4 +1,4 @@
-package pl.edu.mimuw.graphs.services.util.builders;
+package pl.edu.mimuw.graphs.services.projects;
 
 public enum RevisionControlSystem {
 

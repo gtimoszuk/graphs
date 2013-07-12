@@ -1,33 +1,7 @@
 
 dependencies {
 	compile project (':graphs-api')
-        testCompile junitDep
-        testCompile springTestDep
-	
-	compile springWebDep		
-	compile springContextDep	
-	compile springBeansDep		
-	compile springCoreDep		
-	compile springAopDep		
-	compile aspectjWeaverDep
-	compile sspectjRTDep
-	
-	
-	compile neo4jDep		
-	compile neo4jGraphMatchingDep 	
-	compile neo4jAdvancedDep	
-	compile neo4jKernelDep		
-	compile neo4jAlgoDep
-	compile neo4jCypherDep
-	
-	compile blueprintsNeo4jDep	
-//	compile blueprintsNeo4jBatchDep	
-	compile blueprintsCoreDep	
-	compile blueprintsJungDep	
-	compile gremlinGroovyDep	
-	compile gremlinJavaDep		
-
-	testCompile bluepringsTestsDep	
+	testCompile junitDep
 	
 	compile logbackClassicDep	
 	compile slf4jApiDep
@@ -36,5 +10,10 @@ dependencies {
 	compile asmDep
 	compile guavaDep
 	compile jgitDep
+	
+	compile springContextDep
+	compile springContextSupportDep
+	compile springBeansDep
+	testCompile springTestDep
 }
  

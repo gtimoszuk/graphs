@@ -45,7 +45,9 @@ public class PackagesImporter {
 	}
 
 	private void processSinglePackage(String packageString) {
+
 		String[] splittedPackageString = packageString.split("/");
+		LOGGER.debug("working with packageString: {}", packageString);
 		int arraySize = splittedPackageString.length;
 		StringBuffer packageBuffer = new StringBuffer();
 		String parentPackageName = null;
@@ -62,9 +64,9 @@ public class PackagesImporter {
 					graph.addEdge(sequence.getId(), packagesMap.get(parentPackageName), currentVertex,
 							GraphRelationshipType.CONTAINS.name());
 				}
-				parentPackageName = currentPackageName;
 
 			}
+			parentPackageName = currentPackageName;
 			packageBuffer.append("/");
 		}
 	}

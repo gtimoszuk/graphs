@@ -55,13 +55,13 @@
 		<property name="projectPropertiesService" ref="Graphs.ProjectPropertiesService" />
 	</bean>
 
-	<bean id="MVN2" class="pl.edu.mimuw.graphs.services.util.builders.ProjectBuildTool" factory-method="valueOf">
+	<bean id="MVN2" class="pl.edu.mimuw.graphs.services.projects.ProjectBuildTool" factory-method="valueOf">
 		<constructor-arg>
 			<value>MVN</value>
 		</constructor-arg>
 	</bean>
 
-	<bean id="MVN3" class="pl.edu.mimuw.graphs.services.util.builders.ProjectBuildTool" factory-method="valueOf">
+	<bean id="MVN3" class="pl.edu.mimuw.graphs.services.projects.ProjectBuildTool" factory-method="valueOf">
 		<constructor-arg>
 			<value>MVN3</value>
 		</constructor-arg>

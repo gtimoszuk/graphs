@@ -34,7 +34,7 @@ public class PackageGraphExpander {
 		Graph expandedGraph = toTinkerGraphCloner.cloneGraphToTinker(graph);
 		for (Edge edge : expandedGraph.getEdges()) {
 			if (edge.getPropertyKeys().contains(COUNT)) {
-				int count = edge.getProperty(COUNT);
+				Integer count = edge.getProperty(COUNT);
 				for (int i = 0; i < count - 1; i++) {
 					expandedGraph.addEdge(sequence.getId(), edge.getVertex(OUT), edge.getVertex(IN), edge.getLabel());
 				}

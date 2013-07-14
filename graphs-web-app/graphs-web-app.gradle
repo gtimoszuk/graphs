@@ -27,4 +27,7 @@ dependencies {
 	testCompile jettyDep
 	testCompile jettyWebAppDep
 	testCompile junitDep
+	
+	providedCompile servletDep
+
 } 

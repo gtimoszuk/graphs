@@ -6,6 +6,7 @@ import java.io.File;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -59,6 +60,7 @@ public class ProjectBuilderServiceImplTest extends BaseTest {
 
 	}
 
+	@Ignore
 	@Test(timeout = 60000)
 	public void maven2Test() throws GraphsException {
 		// prepare
@@ -76,6 +78,7 @@ public class ProjectBuilderServiceImplTest extends BaseTest {
 
 	}
 
+	@Ignore
 	@Test(timeout = 60000)
 	public void maven3Test() throws GraphsException {
 		// prepare

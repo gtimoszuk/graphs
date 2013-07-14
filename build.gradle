@@ -10,18 +10,6 @@ subprojects {
 //	  all*.exclude group: 'log4j'
 	}
        
-//FIXME: code neo4j pom removal form classpath
-//eclipse {
-//  classpath {
-//    file {
-//      //if you want to mess with the resulting xml in whatever way you fancy
-//     withXml {
-//        def node = it.asNode()
-//        node.appendNode('xml', 'is what I love')
-//      }
-//    }
-//  }
-//}
 
         repositories {
                 mavenLocal()

@@ -81,6 +81,7 @@ public class GraphStatistics {
 
 		for (MetricName metricName : MetricName.values()) {
 			LOGGER.debug("Metric name: {}", metricName.name());
+
 			Map<String, Double> oneMetricStats = new HashMap<String, Double>();
 			double mean = graphStatisticsCounter.mean(vertices, metricName.name());
 			LOGGER.debug("mean: {}", mean);

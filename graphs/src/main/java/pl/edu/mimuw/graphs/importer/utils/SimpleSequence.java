@@ -8,17 +8,17 @@ package pl.edu.mimuw.graphs.importer.utils;
  */
 public class SimpleSequence {
 
-	private int id = 1000;
+	private long id = 1000;
 
 	public SimpleSequence() {
 
 	}
 
-	public SimpleSequence(int id) {
+	public SimpleSequence(long id) {
 		this.id = id;
 	}
 
-	public int getId() {
+	public long getId() {
 		id++;
 		return id;
 	}

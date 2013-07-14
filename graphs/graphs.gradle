@@ -7,6 +7,7 @@ dependencies {
 	compile slf4jApiDep
 	compile javatuplesDep
 	compile commonsMathDep
+	compile excelDep
 	
 	compile groovyDep
 	compile asmDep

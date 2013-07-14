@@ -1,38 +1,50 @@
 package pl.edu.mimuw.graphs.statistics;
 
-import java.util.Set;
-
 import org.apache.commons.math.stat.descriptive.DescriptiveStatistics;
 
 import com.tinkerpop.blueprints.Vertex;
 
+/**
+ * This class is stateless.
+ * 
+ * @author gtimoszuk
+ * 
+ */
 public class GraphStatisticsCounter {
 
-	public double mean(Set<Vertex> vertices, String property) {
+	public double mean(Iterable<Vertex> vertices, String property) {
 		DescriptiveStatistics stats = prepareStatsData(vertices, property);
+
 		return stats.getMean();
 	}
 
-	private DescriptiveStatistics prepareStatsData(Set<Vertex> vertices, String property) {
-		DescriptiveStatistics stats = new DescriptiveStatistics();
-		for (Vertex v : vertices) {
-			if (v.getPropertyKeys().contains(property) && v.getProperty(property) != null) {
-				stats.addValue((Double) v.getProperty(property));
-			}
-		}
-		return stats;
-	}
-
-	public double median(Set<Vertex> vertices, String property) {
+	public double median(Iterable<Vertex> vertices, String property) {
 		DescriptiveStatistics stats = prepareStatsData(vertices, property);
 
 		return stats.getPercentile(50.0);
+
 	}
 
-	public double std(Set<Vertex> vertices, String property) {
+	public double std(Iterable<Vertex> vertices, String property) {
 		DescriptiveStatistics stats = prepareStatsData(vertices, property);
-
 		return stats.getStandardDeviation();
+	}
+
+	private DescriptiveStatistics prepareStatsData(Iterable<Vertex> vertices, String property) {
+		DescriptiveStatistics stats = new DescriptiveStatistics();
+		for (Vertex v : vertices) {
+			if (v.getPropertyKeys().contains(property) && v.getProperty(property) != null) {
+				Object propertyObject = v.getProperty(property);
+				if (propertyObject instanceof Double) {
+					stats.addValue((Double) propertyObject);
+				} else if (propertyObject instanceof Integer) {
+					stats.addValue(((Integer) propertyObject).doubleValue());
+
+				}
+
+			}
+		}
+		return stats;
 	}
 
 }

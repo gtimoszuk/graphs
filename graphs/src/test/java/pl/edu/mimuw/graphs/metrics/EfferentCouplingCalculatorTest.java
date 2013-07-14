@@ -2,7 +2,7 @@ package pl.edu.mimuw.graphs.metrics;
 
 import static pl.edu.mimuw.graphs.api.GraphVertexProperies.NAME;
 import static pl.edu.mimuw.graphs.api.GraphVertexProperies.TYPE;
-import static pl.edu.mimuw.graphs.api.MetricNames.EFFERENT_COUPLING;
+import static pl.edu.mimuw.graphs.api.MetricName.EFFERENT_COUPLING;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -29,7 +29,7 @@ public class EfferentCouplingCalculatorTest {
 			if (v.getPropertyKeys().contains(NAME)) {
 				if (v.getPropertyKeys().contains(EFFERENT_COUPLING)) {
 					LOGGER.info("Node: " + v.getProperty(NAME) + " of type: " + v.getProperty(TYPE)
-							+ " has efferent coupling: " + v.getProperty(EFFERENT_COUPLING));
+							+ " has efferent coupling: " + v.getProperty(EFFERENT_COUPLING.name()));
 				} else {
 					LOGGER.warn("Node: " + v.getProperty(NAME) + " of type: " + v.getProperty(TYPE)
 							+ " has no efferent coupling property.");

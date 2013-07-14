@@ -45,13 +45,13 @@ public class PackageGraphExpander {
 		return expandedGraph;
 	}
 
-	private int getMaxId(Graph graph) {
-		int max = 0;
+	private long getMaxId(Graph graph) {
+		long max = 0;
 		for (Vertex v : graph.getVertices()) {
-			max = max(max, (Integer) v.getId());
+			max = max(max, (Long) v.getId());
 		}
 		for (Edge e : graph.getEdges()) {
-			max = max(max, (Integer) e.getId());
+			max = max(max, (Long) e.getId());
 		}
 		return max;
 	}

@@ -2,7 +2,7 @@ package pl.edu.mimuw.graphs.metrics;
 
 import static pl.edu.mimuw.graphs.api.GraphVertexProperies.NAME;
 import static pl.edu.mimuw.graphs.api.GraphVertexProperies.TYPE;
-import static pl.edu.mimuw.graphs.api.MetricNames.AFFERENT_COUPLING;
+import static pl.edu.mimuw.graphs.api.MetricName.AFFERENT_COUPLING;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -29,7 +29,7 @@ public class AfferentCouplingCalculatorTest {
 			if (v.getPropertyKeys().contains(NAME)) {
 				if (v.getPropertyKeys().contains(AFFERENT_COUPLING)) {
 					LOGGER.info("Node: " + v.getProperty(NAME) + " of type: " + v.getProperty(TYPE)
-							+ " has afferent coupling: " + v.getProperty(AFFERENT_COUPLING));
+							+ " has afferent coupling: " + v.getProperty(AFFERENT_COUPLING.name()));
 				} else {
 					LOGGER.warn("Node: " + v.getProperty(NAME) + " of type: " + v.getProperty(TYPE)
 							+ " has no afferent coupling property.");

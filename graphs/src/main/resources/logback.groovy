@@ -21,8 +21,12 @@ appender("FILE", FileAppender) {
 	encoder(PatternLayoutEncoder) { pattern = "%date %contextName:[%thread] %-5level %logger{35} - %msg %n" }
 }
 
-root(INFO, ["STDOUT", "FILE"])
+
 
 Logger("pl.edu.mimuw.graphs.importer.packages.graph.PackageGraphImporter", TRACE, ["STDOUT"])
 logger("pl.edu.mimuw", TRACE)
 logger("org.springframework", INFO)
+logger("pl.edu.mimuw.graphs.statistics.GraphStatistics", DEBUG)
+
+
+root(INFO, ["STDOUT", "FILE"])

@@ -1,6 +1,6 @@
 package pl.edu.mimuw.graphs.metrics;
 
-import static pl.edu.mimuw.graphs.api.MetricNames.PAGE_RANK;
+import static pl.edu.mimuw.graphs.api.MetricName.PAGE_RANK;
 
 import com.tinkerpop.blueprints.Edge;
 import com.tinkerpop.blueprints.Graph;
@@ -18,7 +18,7 @@ public class PageRankCalculator {
 		for (Vertex v : graphJung.getVertices()) {
 			double score = pageRank.getVertexScore(v);
 			if (graph.getVertex(v.getId()) != null) {
-				graph.getVertex(v.getId()).setProperty(PAGE_RANK, score);
+				graph.getVertex(v.getId()).setProperty(PAGE_RANK.name(), score);
 			}
 		}
 

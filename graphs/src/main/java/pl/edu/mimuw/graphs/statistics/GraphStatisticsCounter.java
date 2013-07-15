@@ -14,7 +14,6 @@ public class GraphStatisticsCounter {
 
 	public double mean(Iterable<Vertex> vertices, String property) {
 		DescriptiveStatistics stats = prepareStatsData(vertices, property);
-
 		return stats.getMean();
 	}
 
@@ -28,6 +27,21 @@ public class GraphStatisticsCounter {
 	public double std(Iterable<Vertex> vertices, String property) {
 		DescriptiveStatistics stats = prepareStatsData(vertices, property);
 		return stats.getStandardDeviation();
+	}
+
+	public double sum(Iterable<Vertex> vertices, String property) {
+		DescriptiveStatistics stats = prepareStatsData(vertices, property);
+		return stats.getSum();
+	}
+
+	public double min(Iterable<Vertex> vertices, String property) {
+		DescriptiveStatistics stats = prepareStatsData(vertices, property);
+		return stats.getMin();
+	}
+
+	public double max(Iterable<Vertex> vertices, String property) {
+		DescriptiveStatistics stats = prepareStatsData(vertices, property);
+		return stats.getMax();
 	}
 
 	private DescriptiveStatistics prepareStatsData(Iterable<Vertex> vertices, String property) {

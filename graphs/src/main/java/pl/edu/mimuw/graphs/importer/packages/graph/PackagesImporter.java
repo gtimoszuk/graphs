@@ -24,7 +24,7 @@ import com.tinkerpop.blueprints.Vertex;
  */
 public class PackagesImporter {
 
-	static final Logger LOGGER = LoggerFactory.getLogger(PackagesImporter.class);
+	private final Logger LOGGER = LoggerFactory.getLogger(PackagesImporter.class);
 
 	private final Set<String> packageStringSet;
 	private final Graph graph;

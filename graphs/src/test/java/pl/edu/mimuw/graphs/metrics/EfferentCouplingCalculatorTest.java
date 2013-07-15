@@ -15,7 +15,7 @@ import com.tinkerpop.blueprints.Vertex;
 
 public class EfferentCouplingCalculatorTest {
 
-	static final Logger LOGGER = LoggerFactory.getLogger(EfferentCouplingCalculatorTest.class);
+	private final Logger LOGGER = LoggerFactory.getLogger(EfferentCouplingCalculatorTest.class);
 
 	@Test
 	public void jUnitImportTest() {
@@ -27,11 +27,11 @@ public class EfferentCouplingCalculatorTest {
 		efferentCouplingCalculator.calculate(graph);
 		for (Vertex v : graph.getVertices()) {
 			if (v.getPropertyKeys().contains(NAME)) {
-				if (v.getPropertyKeys().contains(EFFERENT_COUPLING)) {
-					LOGGER.info("Node: " + v.getProperty(NAME) + " of type: " + v.getProperty(TYPE)
+				if (v.getPropertyKeys().contains(EFFERENT_COUPLING.name())) {
+					LOGGER.debug("Node: " + v.getProperty(NAME) + " of type: " + v.getProperty(TYPE)
 							+ " has efferent coupling: " + v.getProperty(EFFERENT_COUPLING.name()));
 				} else {
-					LOGGER.warn("Node: " + v.getProperty(NAME) + " of type: " + v.getProperty(TYPE)
+					LOGGER.debug("Node: " + v.getProperty(NAME) + " of type: " + v.getProperty(TYPE)
 							+ " has no efferent coupling property.");
 				}
 			}

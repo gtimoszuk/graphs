@@ -35,7 +35,7 @@ public abstract class AbstractCouplingCalculator {
 		}
 	}
 
-	private void calculateForSingleVertex(Graph graph, Vertex v) {
+	protected void calculateForSingleVertex(Graph graph, Vertex v) {
 		Set<String> containsSet = new HashSet<String>();
 		containsSet.add(CONTAINS.name());
 		Set<Vertex> transitiveClosure = utils.transitiveClosure(graph, containsSet, v);

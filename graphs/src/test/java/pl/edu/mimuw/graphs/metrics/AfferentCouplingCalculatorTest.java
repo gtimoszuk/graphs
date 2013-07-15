@@ -15,7 +15,7 @@ import com.tinkerpop.blueprints.Vertex;
 
 public class AfferentCouplingCalculatorTest {
 
-	static final Logger LOGGER = LoggerFactory.getLogger(AfferentCouplingCalculatorTest.class);
+	private final Logger LOGGER = LoggerFactory.getLogger(AfferentCouplingCalculatorTest.class);
 
 	@Test
 	public void jUnitImportTest() {
@@ -25,17 +25,21 @@ public class AfferentCouplingCalculatorTest {
 
 		AbstractCouplingCalculator afferentCouplingCalculator = new AfferentCouplingCalculator();
 		afferentCouplingCalculator.calculate(graph);
+		int ok = 0, noOk = 0;
 		for (Vertex v : graph.getVertices()) {
 			if (v.getPropertyKeys().contains(NAME)) {
-				if (v.getPropertyKeys().contains(AFFERENT_COUPLING)) {
-					LOGGER.info("Node: " + v.getProperty(NAME) + " of type: " + v.getProperty(TYPE)
+				if (v.getPropertyKeys().contains(AFFERENT_COUPLING.name())) {
+					LOGGER.debug("Node: " + v.getProperty(NAME) + " of type: " + v.getProperty(TYPE)
 							+ " has afferent coupling: " + v.getProperty(AFFERENT_COUPLING.name()));
+					ok++;
 				} else {
-					LOGGER.warn("Node: " + v.getProperty(NAME) + " of type: " + v.getProperty(TYPE)
+					LOGGER.debug("Node: " + v.getProperty(NAME) + " of type: " + v.getProperty(TYPE)
 							+ " has no afferent coupling property.");
+					noOk++;
 				}
 			}
 
 		}
+		LOGGER.debug("stats, ok: {}. noOk: {}", ok, noOk);
 	}
 }

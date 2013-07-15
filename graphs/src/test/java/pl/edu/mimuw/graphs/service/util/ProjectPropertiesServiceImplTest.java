@@ -38,12 +38,14 @@ public class ProjectPropertiesServiceImplTest extends BaseTest {
 		return log;
 	}
 
+	@Override
 	@Before
 	public void before() {
 		super.before();
 
 	}
 
+	@Override
 	@After
 	public void after() {
 		super.after();
@@ -52,7 +54,7 @@ public class ProjectPropertiesServiceImplTest extends BaseTest {
 	@Test
 	public void shouldSetProperty() throws GraphsException {
 		// prepare
-		String projectName = this.getClass().toString();
+		String projectName = this.getClass().toString() + randomSuffix();
 		pathResolvingService.getPropertiesFile(projectName);
 		String propertyName = "key";
 		String propertyValue = "value";
@@ -67,9 +69,9 @@ public class ProjectPropertiesServiceImplTest extends BaseTest {
 	@Test
 	public void shouldReturnNullIfPropertyIsAbsent() throws GraphsException {
 		// prepare
-		String projectName = this.getClass().toString();
+		String projectName = this.getClass().toString() + randomSuffix();
 		pathResolvingService.getPropertiesFile(projectName);
-		String propertyName = "key";
+		String propertyName = "alan";
 
 		// test && check
 		assertNull(projectPropertiesService.getProperty(projectName, propertyName));
@@ -78,7 +80,7 @@ public class ProjectPropertiesServiceImplTest extends BaseTest {
 	@Test
 	public void shouldBeAbleToOverrideProperty() throws GraphsException {
 		// prepare
-		String projectName = this.getClass().toString();
+		String projectName = this.getClass().toString() + randomSuffix();
 		pathResolvingService.getPropertiesFile(projectName);
 		String propertyName = "key";
 		String propertyValue = "value";
@@ -96,7 +98,7 @@ public class ProjectPropertiesServiceImplTest extends BaseTest {
 	@Test(expected = GraphsException.class)
 	public void shouldThrowExcpWhenNoBuildTool() throws GraphsException {
 		// prepare
-		String projectName = this.getClass().toString();
+		String projectName = this.getClass().toString() + randomSuffix();
 		pathResolvingService.getPropertiesFile(projectName);
 
 		// test && check
@@ -106,7 +108,7 @@ public class ProjectPropertiesServiceImplTest extends BaseTest {
 	@Test
 	public void shouldSetAndGetBuildTool() throws GraphsException {
 		// prepare
-		String projectName = this.getClass().toString();
+		String projectName = this.getClass().toString() + randomSuffix();
 		pathResolvingService.getPropertiesFile(projectName);
 
 		// test

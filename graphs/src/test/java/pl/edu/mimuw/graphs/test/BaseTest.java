@@ -1,5 +1,7 @@
 package pl.edu.mimuw.graphs.test;
 
+import java.util.Calendar;
+
 import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.slf4j.Logger;
@@ -32,6 +34,10 @@ public abstract class BaseTest {
 	public void after() {
 		getLog().info("{} test finishing", name.getMethodName());
 
+	}
+
+	protected String randomSuffix() {
+		return String.valueOf(Calendar.getInstance().getTimeInMillis());
 	}
 
 }

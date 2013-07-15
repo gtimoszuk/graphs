@@ -1,8 +1,11 @@
 package pl.edu.mimuw.graphs.statistics;
 
+import static pl.edu.mimuw.graphs.api.GraphStatististicsName.MAX;
 import static pl.edu.mimuw.graphs.api.GraphStatististicsName.MEAN;
 import static pl.edu.mimuw.graphs.api.GraphStatististicsName.MEDIAN;
+import static pl.edu.mimuw.graphs.api.GraphStatististicsName.MIN;
 import static pl.edu.mimuw.graphs.api.GraphStatististicsName.STD;
+import static pl.edu.mimuw.graphs.api.GraphStatististicsName.SUM;
 import static pl.edu.mimuw.graphs.api.GraphVertexProperies.TYPE;
 import static pl.edu.mimuw.graphs.api.GraphVertexTypes.CLASS;
 import static pl.edu.mimuw.graphs.api.GraphVertexTypes.PACKAGE;
@@ -81,18 +84,34 @@ public class GraphStatistics {
 
 		for (MetricName metricName : MetricName.values()) {
 			LOGGER.debug("Metric name: {}", metricName.name());
-
 			Map<String, Double> oneMetricStats = new HashMap<String, Double>();
+
+			double min = graphStatisticsCounter.min(vertices, metricName.name());
+			LOGGER.debug("min: {}", min);
+			oneMetricStats.put(MIN.name(), min);
+
+			double max = graphStatisticsCounter.max(vertices, metricName.name());
+			LOGGER.debug("max: {}", max);
+			oneMetricStats.put(MAX.name(), max);
+
+			double sum = graphStatisticsCounter.sum(vertices, metricName.name());
+			LOGGER.debug("sum: {}", sum);
+			oneMetricStats.put(SUM.name(), sum);
+
 			double mean = graphStatisticsCounter.mean(vertices, metricName.name());
 			LOGGER.debug("mean: {}", mean);
 			oneMetricStats.put(MEAN.name(), mean);
-			double std = graphStatisticsCounter.std(vertices, metricName.name());
-			LOGGER.debug("std: {}", std);
-			oneMetricStats.put(STD.name(), std);
+
 			double median = graphStatisticsCounter.median(vertices, metricName.name());
 			LOGGER.debug("median: {}", median);
 			oneMetricStats.put(MEDIAN.name(), median);
+
+			double std = graphStatisticsCounter.std(vertices, metricName.name());
+			LOGGER.debug("std: {}", std);
+			oneMetricStats.put(STD.name(), std);
+
 			result.put(metricName, oneMetricStats);
+
 		}
 
 		return result;

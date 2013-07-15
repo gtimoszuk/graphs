@@ -37,7 +37,7 @@ public class GitSupportServiceImplTest extends BaseTest {
 
 	@Test(timeout = 60000)
 	public void canCheckoutExistingRepo() throws GraphsException {
-		gitSupportService.cloneRepository(ZHIBERNATE, ZHIBERNATE_REPO);
+		gitSupportService.cloneRepository(ZHIBERNATE + randomSuffix(), ZHIBERNATE_REPO);
 	}
 
 	@Test(timeout = 60000, expected = GraphsException.class)

@@ -79,9 +79,8 @@ public class PackageGraphImporter implements GraphImporter {
 			result = entitiesImporter.processEntities();
 		} catch (IOException e) {
 			LOGGER.warn("EXCP: {}", e);
-		} finally {
-			return result;
 		}
+		return result;
 	}
 
 	private void setUpFilePaths(String directoryString) {
@@ -110,8 +109,6 @@ public class PackageGraphImporter implements GraphImporter {
 		} catch (IOException e) {
 			LOGGER.warn("EXCP: {}", e);
 
-		} finally {
-
 		}
 	}
 
@@ -132,8 +129,7 @@ public class PackageGraphImporter implements GraphImporter {
 
 		} catch (IOException e) {
 			LOGGER.warn("EXCP: {}", e);
-		} finally {
-			return result;
 		}
+		return result;
 	}
 }

@@ -61,24 +61,6 @@ public class GraphStatistics {
 		return result;
 	}
 
-	// public Map<MetricName, Map<String, Double>>
-	// getStatisticsForLeafPackages(Graph graph) {
-	//
-	// Iterable<Vertex> vertices = getLeafPackageVertices(graph);
-	// return calulateAllStatistics(vertices);
-	// }
-	//
-	// private Iterable<Vertex> getLeafPackageVertices(Graph graph) {
-	// List<Vertex> result = new ArrayList<Vertex>();
-	// for (Vertex v : graph.getVertices()) {
-	// if (v.getPropertyKeys().contains(TYPE) &&
-	// PACKAGE.equals(v.getProperty(TYPE))) {
-	//
-	// }
-	// }
-	// return result;
-	// }
-
 	private Map<MetricName, Map<String, Double>> calulateAllStatistics(Iterable<Vertex> vertices) {
 		Map<MetricName, Map<String, Double>> result = new HashMap<MetricName, Map<String, Double>>();
 

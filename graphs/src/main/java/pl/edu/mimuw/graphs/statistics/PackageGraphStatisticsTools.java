@@ -2,13 +2,10 @@ package pl.edu.mimuw.graphs.statistics;
 
 import static pl.edu.mimuw.graphs.api.GraphRelationshipType.CALLS;
 import static pl.edu.mimuw.graphs.api.GraphRelationshipType.CONTAINS;
-import static pl.edu.mimuw.graphs.api.MetricName.EFFERENT_COUPLING;
 import static pl.edu.mimuw.graphs.api.MetricName.PAGE_RANK;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
@@ -22,6 +19,7 @@ import pl.edu.mimuw.graphs.importer.packages.graph.PackageGraphImporter;
 import pl.edu.mimuw.graphs.metrics.AfferentCouplingCalculator;
 import pl.edu.mimuw.graphs.metrics.CallsFromOtherPackagesCalculator;
 import pl.edu.mimuw.graphs.metrics.CallsToOtherPackagesCalculator;
+import pl.edu.mimuw.graphs.metrics.ClassesPerPackageCalculator;
 import pl.edu.mimuw.graphs.metrics.EfferentCouplingCalculator;
 import pl.edu.mimuw.graphs.metrics.PageRankCalculator;
 
@@ -38,6 +36,7 @@ public class PackageGraphStatisticsTools {
 	private final static String RESULTS = "results/";
 
 	public void countOneDirStatsForProject(String workingDir, String projectName, boolean ifToSaveDB) {
+		// preparing paths and dirs
 		String dataDirPath = workingDir + DATA + projectName + "/";
 		String dbDirPath = workingDir + DB + projectName + "/";
 		String resultsDirPath = workingDir + RESULTS + projectName + "/";
@@ -47,6 +46,8 @@ public class PackageGraphStatisticsTools {
 		}
 
 		LOGGER.info("Work starting with {}", projectName);
+
+		// setting up importer and cleaning dirs
 		PackageGraphImporter importer = null;
 		if (!ifToSaveDB) {
 			importer = new PackageGraphImporter(dataDirPath);
@@ -59,6 +60,12 @@ public class PackageGraphStatisticsTools {
 			}
 			importer = new PackageGraphImporter(dataDirPath, dbDirPath);
 		}
+
+		countData(projectName, resultsDirPath, importer);
+
+	}
+
+	private void countData(String projectName, String resultsDirPath, PackageGraphImporter importer) {
 		Graph graph = importer.importGraph();
 		LOGGER.info("Import started");
 		PackageGraphExpander packageGraphExpander = new PackageGraphExpander();
@@ -85,7 +92,15 @@ public class PackageGraphStatisticsTools {
 		LOGGER.info("Calls to other packages callculation started");
 		callsToOtherPackagesCalculator.calculate(graph);
 
-		Map<String, Map<MetricName, Map<String, Double>>> graphStatisticsSummaries = new HashMap<String, Map<MetricName, Map<String, Double>>>();
+		ClassesPerPackageCalculator classesPerPackageCalculator = new ClassesPerPackageCalculator();
+		LOGGER.info("Classes per package callculation started");
+		classesPerPackageCalculator.calculate(graph);
+
+		GraphStatisticsSummaries graphStatisticsSummaries = new GraphStatisticsSummaries();
+
+		// Map<String, Map<MetricName, Map<String, Double>>>
+		// graphStatisticsSummaries = new HashMap<String, Map<MetricName,
+		// Map<String, Double>>>();
 
 		GraphStatistics graphStatistics = new GraphStatistics();
 		LOGGER.info("Whole graph statistics");
@@ -108,67 +123,19 @@ public class PackageGraphStatisticsTools {
 				graphStatisticsSummaries);
 
 		graph.shutdown();
-
 	}
 
-	public void countOneDirStatsForProject(String projectPath, String outPath, String outInfix) {
+	public void countOneDirStatsForProject(String projectPath, String workingDir) {
 		String[] pathSplitted = projectPath.split("/");
 		String projectName = pathSplitted[pathSplitted.length - 1];
 
+		String resultsDirPath = workingDir + RESULTS + projectName + "/";
+
 		LOGGER.info("Work starting with {}", projectName);
 		PackageGraphImporter importer = new PackageGraphImporter(projectPath);
-		Graph graph = importer.importGraph();
-		LOGGER.info("Import started");
-		PackageGraphExpander packageGraphExpander = new PackageGraphExpander();
-		LOGGER.info("Graph expansion started");
-		packageGraphExpander.expandGraphInPlace(graph);
 
-		PageRankCalculator pageRankCalculator = new PageRankCalculator();
-		LOGGER.info("Page rank callculation started");
-		pageRankCalculator.calculate(graph);
+		countData(projectName, resultsDirPath, importer);
 
-		AfferentCouplingCalculator afferentCouplingCalculator = new AfferentCouplingCalculator();
-		LOGGER.info("Afferent coupling callculation started");
-		afferentCouplingCalculator.calculate(graph);
-
-		EfferentCouplingCalculator efferentCouplingCalculator = new EfferentCouplingCalculator();
-		LOGGER.info("Efferent coupling callculation started");
-		efferentCouplingCalculator.calculate(graph);
-
-		CallsFromOtherPackagesCalculator callsFromOtherPackagesCalculator = new CallsFromOtherPackagesCalculator();
-		LOGGER.info("Calls from other packages callculation started");
-		callsFromOtherPackagesCalculator.calculate(graph);
-
-		CallsToOtherPackagesCalculator callsToOtherPackagesCalculator = new CallsToOtherPackagesCalculator();
-		LOGGER.info("Calls to other packages callculation started");
-		callsToOtherPackagesCalculator.calculate(graph);
-
-		Map<String, Map<MetricName, Map<String, Double>>> graphStatisticsSummaries = new HashMap<String, Map<MetricName, Map<String, Double>>>();
-
-		GraphStatistics graphStatistics = new GraphStatistics();
-		LOGGER.info("Whole graph statistics");
-		graphStatisticsSummaries.put("Whole graph", graphStatistics.getStatisticsForGraph(graph));
-		LOGGER.info("Packages only statistics");
-		graphStatisticsSummaries.put("Packages only", graphStatistics.getStatisticsForPackages(graph));
-		LOGGER.info("Classes only statistics");
-		graphStatisticsSummaries.put("Classes only", graphStatistics.getStatisticsForClasses(graph));
-
-		MagnifyExporter magnifyExporter = new MagnifyExporter();
-		LOGGER.info("Magnify export started");
-
-		magnifyExporter.export(outPath + projectName + outInfix + ".json", graph, EFFERENT_COUPLING.name(),
-				PAGE_RANK.name(), CONTAINS.name(), CALLS.name());
-
-		LOGGER.info("XLS export started");
-		graphDataAndStatsToXlsExporter.singleGraphExporter(outPath + projectName + outInfix + ".xls", graph,
-				graphStatisticsSummaries);
-
-		graph.shutdown();
-
-	}
-
-	public void countOneDirStatsForProject(String projectPath, String outPath) {
-		countOneDirStatsForProject(projectPath, outPath, "");
 	}
 
 }

@@ -21,14 +21,6 @@ public class PackageGraphStatisticsToolsTest {
 
 	@Ignore
 	@Test
-	public void junitSimpleTest() {
-		PackageGraphStatisticsTools packageGraphStatisticsTools = new PackageGraphStatisticsTools();
-		packageGraphStatisticsTools.countOneDirStatsForProject("/home/ballo0/GTI/package_graph/results/junit/",
-				"/tmp/", "-opt");
-	}
-
-	@Ignore
-	@Test
 	public void allDataRun() {
 		File dataDir = new File("/home/ballo0/GTI/PHD/iter1/data/");
 		File[] projectsToAnalyze = dataDir.listFiles();
@@ -38,8 +30,7 @@ public class PackageGraphStatisticsToolsTest {
 			String[] pathSplitted = absolutePath.split("/");
 			String projectNameSuffix = pathSplitted[pathSplitted.length - 1];
 			LOGGER.info("working with projet: {}", projectNameSuffix);
-			String resultsPath = "/home/ballo0/GTI/PHD/iter1/results/";
-			String resultDirPath = resultsPath + projectNameSuffix + "/";
+			String resultDirPath = "/home/ballo0/GTI/PHD/iter1/";
 			File resultDir = new File(resultDirPath);
 			resultDir.mkdirs();
 

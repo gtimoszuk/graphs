@@ -17,6 +17,7 @@ import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 import pl.edu.mimuw.graphs.api.GraphStatististicsName;
 import pl.edu.mimuw.graphs.api.MetricName;
+import pl.edu.mimuw.graphs.statistics.GraphStatisticsSummaries;
 
 import com.tinkerpop.blueprints.Graph;
 import com.tinkerpop.blueprints.Vertex;
@@ -29,8 +30,7 @@ import com.tinkerpop.blueprints.Vertex;
  */
 public class GraphDataAndStatsToXlsExporter {
 
-	public void singleGraphExporter(String outPath, Graph graph,
-			Map<String, Map<MetricName, Map<String, Double>>> graphStatisticsSummaries) {
+	public void singleGraphExporter(String outPath, Graph graph, GraphStatisticsSummaries graphStatisticsSummaries) {
 		try {
 			WritableWorkbook workbook = Workbook.createWorkbook(new File(outPath));
 
@@ -55,9 +55,8 @@ public class GraphDataAndStatsToXlsExporter {
 
 	}
 
-	private void writeSummary(Graph graph, WritableWorkbook workbook,
-			Map<String, Map<MetricName, Map<String, Double>>> graphStatisticsSummaries) throws RowsExceededException,
-			WriteException {
+	private void writeSummary(Graph graph, WritableWorkbook workbook, GraphStatisticsSummaries graphStatisticsSummaries)
+			throws RowsExceededException, WriteException {
 		WritableSheet sheet = workbook.createSheet("Summary", 0);
 		int i = 0;
 		for (String s : graphStatisticsSummaries.keySet()) {

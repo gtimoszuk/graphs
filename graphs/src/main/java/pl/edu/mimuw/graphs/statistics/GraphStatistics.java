@@ -65,31 +65,31 @@ public class GraphStatistics {
 		Map<MetricName, Map<String, Double>> result = new HashMap<MetricName, Map<String, Double>>();
 
 		for (MetricName metricName : MetricName.values()) {
-			LOGGER.debug("Metric name: {}", metricName.name());
+			LOGGER.trace("Metric name: {}", metricName.name());
 			Map<String, Double> oneMetricStats = new HashMap<String, Double>();
 
 			double min = graphStatisticsCounter.min(vertices, metricName.name());
-			LOGGER.debug("min: {}", min);
+			LOGGER.trace("min: {}", min);
 			oneMetricStats.put(MIN.name(), min);
 
 			double max = graphStatisticsCounter.max(vertices, metricName.name());
-			LOGGER.debug("max: {}", max);
+			LOGGER.trace("max: {}", max);
 			oneMetricStats.put(MAX.name(), max);
 
 			double sum = graphStatisticsCounter.sum(vertices, metricName.name());
-			LOGGER.debug("sum: {}", sum);
+			LOGGER.trace("sum: {}", sum);
 			oneMetricStats.put(SUM.name(), sum);
 
 			double mean = graphStatisticsCounter.mean(vertices, metricName.name());
-			LOGGER.debug("mean: {}", mean);
+			LOGGER.trace("mean: {}", mean);
 			oneMetricStats.put(MEAN.name(), mean);
 
 			double median = graphStatisticsCounter.median(vertices, metricName.name());
-			LOGGER.debug("median: {}", median);
+			LOGGER.trace("median: {}", median);
 			oneMetricStats.put(MEDIAN.name(), median);
 
 			double std = graphStatisticsCounter.std(vertices, metricName.name());
-			LOGGER.debug("std: {}", std);
+			LOGGER.trace("std: {}", std);
 			oneMetricStats.put(STD.name(), std);
 
 			result.put(metricName, oneMetricStats);

@@ -33,8 +33,10 @@ public class GraphDataAndStatsToXlsExporter {
 			Map<String, Map<MetricName, Map<String, Double>>> graphStatisticsSummaries) {
 		try {
 			WritableWorkbook workbook = Workbook.createWorkbook(new File(outPath));
+
 			writeSummary(graph, workbook, graphStatisticsSummaries);
 			writeData(graph, workbook);
+
 			workbook.write();
 			workbook.close();
 		} catch (IOException e) {
@@ -48,16 +50,27 @@ public class GraphDataAndStatsToXlsExporter {
 
 	private void writeData(Graph graph, WritableWorkbook workbook) throws RowsExceededException, WriteException {
 		WritableSheet sheet = workbook.createSheet("Vertices", 1);
-		Label nameLabel = new Label(0, 0, NAME);
-		sheet.addCell(nameLabel);
-		Label typeLabel = new Label(1, 0, TYPE);
-		sheet.addCell(typeLabel);
-		int i = 2;
-		for (MetricName metricName : MetricName.values()) {
-			Label label = new Label(i, 0, metricName.name());
+		writeVerticesHeader(sheet);
+		writeSingleVertexData(graph, sheet);
+
+	}
+
+	private void writeSummary(Graph graph, WritableWorkbook workbook,
+			Map<String, Map<MetricName, Map<String, Double>>> graphStatisticsSummaries) throws RowsExceededException,
+			WriteException {
+		WritableSheet sheet = workbook.createSheet("Summary", 0);
+		int i = 0;
+		for (String s : graphStatisticsSummaries.keySet()) {
+			Label label = new Label(0, i, s);
 			sheet.addCell(label);
 			i++;
+			i = writeSummaryForView(sheet, graphStatisticsSummaries.get(s), i);
+			i++;
+			i++;
 		}
+	}
+
+	private void writeSingleVertexData(Graph graph, WritableSheet sheet) throws WriteException, RowsExceededException {
 		int r = 1;
 		for (Vertex v : graph.getVertices()) {
 			if (v.getProperty(NAME) != null) {
@@ -88,20 +101,17 @@ public class GraphDataAndStatsToXlsExporter {
 				r++;
 			}
 		}
-
 	}
 
-	private void writeSummary(Graph graph, WritableWorkbook workbook,
-			Map<String, Map<MetricName, Map<String, Double>>> graphStatisticsSummaries) throws RowsExceededException,
-			WriteException {
-		WritableSheet sheet = workbook.createSheet("Summary", 0);
-		int i = 0;
-		for (String s : graphStatisticsSummaries.keySet()) {
-			Label label = new Label(0, i, s);
+	private void writeVerticesHeader(WritableSheet sheet) throws WriteException, RowsExceededException {
+		Label nameLabel = new Label(0, 0, NAME);
+		sheet.addCell(nameLabel);
+		Label typeLabel = new Label(1, 0, TYPE);
+		sheet.addCell(typeLabel);
+		int i = 2;
+		for (MetricName metricName : MetricName.values()) {
+			Label label = new Label(i, 0, metricName.name());
 			sheet.addCell(label);
-			i++;
-			i = writeSummaryForView(sheet, graphStatisticsSummaries.get(s), i);
-			i++;
 			i++;
 		}
 	}

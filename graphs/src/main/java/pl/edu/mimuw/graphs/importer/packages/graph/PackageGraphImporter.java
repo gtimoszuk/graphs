@@ -49,6 +49,12 @@ public class PackageGraphImporter implements GraphImporter {
 		setUpFilePaths(directoryString);
 	}
 
+	public PackageGraphImporter(String directoryString, String dbDir) {
+		File tempDir = new File(dbDir);
+		resultGraph = new Neo4jGraph(tempDir.getAbsolutePath());
+		setUpFilePaths(directoryString);
+	}
+
 	@Override
 	public Graph importGraph() {
 		Map<String, Vertex> packagesMap = processPackages();

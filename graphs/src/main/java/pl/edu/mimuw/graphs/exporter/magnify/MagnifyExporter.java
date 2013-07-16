@@ -25,22 +25,7 @@ public class MagnifyExporter {
 
 	static final Logger LOGGER = LoggerFactory.getLogger(MagnifyExporter.class);
 
-	private final Graph graph;
-
-	private final Map<Long, Long> graphIdToJsonId = new HashMap<Long, Long>();
-
-	private final SimpleSequence sequence = new SimpleSequence(-1L);
-
-	private final String metricToExport;
-
-	private final String sizeProperty;
-
-	private final String packageImportsLabel;
-
-	private final String inPackageLabel;
-
 	private final static String KIND_STRING = "\"kind\": ";
-
 	private final static String METRIC_LINES_OF_CODE_STRING = "\"metric--lines-of-code\": ";
 	private final static String NAME_STRING = "\"name\": ";
 	private final static String PAGE_RANK = "\"page-rank\": ";
@@ -51,26 +36,21 @@ public class MagnifyExporter {
 	private final static String SOURCE_STRING = "\"source\": ";
 	private final static String TARGET_STRING = "\"target\": ";
 
-	public MagnifyExporter(Graph graph, String metricToExport, String sizeProperty, String inPackageLabel,
+	public void export(String outPath, Graph graph, String metricToExport, String sizeProperty, String inPackageLabel,
 			String packageImportsLabel) {
-		this.graph = graph;
-		this.metricToExport = metricToExport;
-		this.sizeProperty = sizeProperty;
-		this.inPackageLabel = inPackageLabel;
-		this.packageImportsLabel = packageImportsLabel;
-	}
 
-	public void export(String outPath) {
+		Map<Long, Long> graphIdToJsonId = new HashMap<Long, Long>();
+
 		Writer jsonWriter = null;
 
 		try {
 			jsonWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outPath)));
 			jsonWriter.append("{\n");
 			jsonWriter.append(NODES + " ");
-			exportNodes(jsonWriter);
+			exportNodes(jsonWriter, graph, graphIdToJsonId, metricToExport, sizeProperty);
 			jsonWriter.append(",");
 			jsonWriter.append(EDGES + " ");
-			exportEdges(jsonWriter);
+			exportEdges(jsonWriter, graph, packageImportsLabel, inPackageLabel, graphIdToJsonId);
 			jsonWriter.append("}");
 			jsonWriter.close();
 		} catch (IOException e) {
@@ -79,7 +59,8 @@ public class MagnifyExporter {
 
 	}
 
-	private void exportEdges(Writer jsonWriter) throws IOException {
+	private void exportEdges(Writer jsonWriter, Graph graph, String packageImportsLabel, String inPackageLabel,
+			Map<Long, Long> graphIdToJsonId) throws IOException {
 		jsonWriter.append("[\n");
 		boolean ifFirst = true;
 		for (Edge e : graph.getEdges()) {
@@ -89,20 +70,21 @@ public class MagnifyExporter {
 				} else {
 					ifFirst = false;
 				}
-				exportSingleEdge(e, jsonWriter);
+				exportSingleEdge(e, jsonWriter, packageImportsLabel, graphIdToJsonId);
 			}
 		}
 
 		jsonWriter.append("]\n");
 	}
 
-	private void exportSingleEdge(Edge e, Writer jsonWriter) throws IOException {
+	private void exportSingleEdge(Edge e, Writer jsonWriter, String packageImportsLabel, Map<Long, Long> graphIdToJsonId)
+			throws IOException {
 		jsonWriter.append("{\n");
 		jsonWriter.append(SOURCE_STRING);
-		jsonWriter.append(graphIdToJsonId.get(Long.parseLong((String) e.getVertex(OUT).getId())).toString());
+		jsonWriter.append(graphIdToJsonId.get(e.getVertex(OUT).getId()).toString());
 		jsonWriter.append(",\n");
 		jsonWriter.append(TARGET_STRING);
-		jsonWriter.append(graphIdToJsonId.get(Long.parseLong((String) e.getVertex(IN).getId())).toString());
+		jsonWriter.append(graphIdToJsonId.get(e.getVertex(IN).getId()).toString());
 		jsonWriter.append(",\n");
 		jsonWriter.append(KIND_STRING);
 		if (packageImportsLabel.equals(e.getLabel())) {
@@ -114,7 +96,10 @@ public class MagnifyExporter {
 		jsonWriter.append("}");
 	}
 
-	private void exportNodes(Writer jsonWriter) throws IOException {
+	private void exportNodes(Writer jsonWriter, Graph graph, Map<Long, Long> graphIdToJsonId, String metricToExport,
+			String sizeProperty) throws IOException {
+		SimpleSequence sequence = new SimpleSequence(-1L);
+
 		jsonWriter.append("[\n");
 		boolean ifFirst = true;
 		for (Vertex v : graph.getVertices()) {
@@ -124,7 +109,7 @@ public class MagnifyExporter {
 				} else {
 					ifFirst = false;
 				}
-				exportSingleVertex(v, jsonWriter);
+				exportSingleVertex(v, jsonWriter, graphIdToJsonId, sequence, metricToExport, sizeProperty);
 			}
 		}
 
@@ -132,8 +117,10 @@ public class MagnifyExporter {
 
 	}
 
-	private void exportSingleVertex(Vertex v, Writer jsonWriter) throws IOException {
-		graphIdToJsonId.put(Long.parseLong((String) v.getId()), sequence.getId());
+	private void exportSingleVertex(Vertex v, Writer jsonWriter, Map<Long, Long> graphIdToJsonId,
+			SimpleSequence sequence, String metricToExport, String sizeProperty) throws IOException {
+
+		graphIdToJsonId.put((Long) v.getId(), sequence.getId());
 
 		jsonWriter.append("{\n");
 		jsonWriter.append(NAME_STRING + "\"" + v.getProperty(NAME) + "\",\n");

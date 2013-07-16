@@ -20,16 +20,10 @@ public class PackageGraphExpander {
 
 	private final ToTinkerGraphCloner toTinkerGraphCloner = new ToTinkerGraphCloner();
 
-	private final Graph graph;
+	public Graph expandGraphAndReturnNew(Graph graph) {
 
-	private final SimpleSequence sequence;
-
-	public PackageGraphExpander(Graph graph) {
-		this.graph = graph;
-		this.sequence = new SimpleSequence(getMaxId(graph));
-	}
-
-	public Graph expandGraph() {
+		SimpleSequence sequence;
+		sequence = new SimpleSequence(getMaxId(graph));
 
 		Graph expandedGraph = toTinkerGraphCloner.cloneGraphToTinker(graph);
 		for (Edge edge : expandedGraph.getEdges()) {
@@ -43,6 +37,22 @@ public class PackageGraphExpander {
 		}
 
 		return expandedGraph;
+	}
+
+	public void expandGraphInPlace(Graph graph) {
+
+		SimpleSequence sequence;
+		sequence = new SimpleSequence(getMaxId(graph));
+
+		for (Edge edge : graph.getEdges()) {
+			if (edge.getPropertyKeys().contains(COUNT)) {
+				Integer count = edge.getProperty(COUNT);
+				for (int i = 0; i < count - 1; i++) {
+					graph.addEdge(sequence.getId(), edge.getVertex(OUT), edge.getVertex(IN), edge.getLabel());
+				}
+				edge.removeProperty(COUNT);
+			}
+		}
 	}
 
 	private long getMaxId(Graph graph) {

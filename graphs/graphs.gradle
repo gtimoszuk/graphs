@@ -8,6 +8,7 @@ dependencies {
 	compile javatuplesDep
 	compile commonsMathDep
 	compile excelDep
+	compile commonsIODep
 	
 	compile groovyDep
 	compile asmDep

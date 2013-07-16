@@ -47,7 +47,7 @@ public class PackagesImporter {
 	private void processSinglePackage(String packageString) {
 
 		String[] splittedPackageString = packageString.split("/");
-		LOGGER.debug("working with packageString: {}", packageString);
+		LOGGER.trace("working with packageString: {}", packageString);
 		int arraySize = splittedPackageString.length;
 		StringBuffer packageBuffer = new StringBuffer();
 		String parentPackageName = null;

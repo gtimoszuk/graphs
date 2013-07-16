@@ -22,11 +22,4 @@ appender("FILE", FileAppender) {
 }
 
 
-
-//Logger("pl.edu.mimuw.graphs.importer.packages.graph.PackageGraphImporter", TRACE, ["STDOUT"])
-logger("pl.edu.mimuw", INFO)
-logger("org.springframework", INFO)
-//logger("pl.edu.mimuw.graphs.statistics.GraphStatistics", DEBUG)
-
-
 root(INFO, ["STDOUT", "FILE"])

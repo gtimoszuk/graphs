@@ -27,6 +27,10 @@ import com.tinkerpop.blueprints.Graph;
 
 public class PackageGraphStatisticsTools {
 
+	private static final String CLASSES_ONLY = "Classes only";
+	private static final String PACKAGES_ONLY = "Packages only";
+	private static final String WHOLE_GRAPH = "Whole graph";
+
 	static final Logger LOGGER = LoggerFactory.getLogger(PackageGraphStatisticsTools.class);
 
 	private final GraphDataAndStatsToXlsExporter graphDataAndStatsToXlsExporter = new GraphDataAndStatsToXlsExporter();
@@ -34,6 +38,33 @@ public class PackageGraphStatisticsTools {
 	private final static String DATA = "data/";
 	private final static String DB = "db/";
 	private final static String RESULTS = "results/";
+
+	public void countOneDirStatsIfProjectIsNew(String workingDir, String projectName, boolean ifToSaveDB) {
+		String dataDirPath = workingDir + DATA + projectName + "/";
+		String dbDirPath = workingDir + DB + projectName + "/";
+		String resultsDirPath = workingDir + RESULTS + projectName + "/";
+		File resultDir = new File(resultsDirPath);
+		if (!resultDir.exists()) {
+			resultDir.mkdirs();
+		}
+
+		LOGGER.info("Work starting with {}", projectName);
+
+		// setting up importer and cleaning dirs
+		PackageGraphImporter importer = null;
+		if (!ifToSaveDB) {
+			importer = new PackageGraphImporter(dataDirPath);
+			countData(projectName, resultsDirPath, importer);
+		} else {
+			File dbDir = new File(dbDirPath);
+			if (!dbDir.exists()) {
+				importer = new PackageGraphImporter(dataDirPath, dbDirPath);
+				countData(projectName, resultsDirPath, importer);
+			} else {
+				LOGGER.info("Project already processed. Exiiting");
+			}
+		}
+	}
 
 	public void countOneDirStatsForProject(String workingDir, String projectName, boolean ifToSaveDB) {
 		// preparing paths and dirs
@@ -98,17 +129,13 @@ public class PackageGraphStatisticsTools {
 
 		GraphStatisticsSummaries graphStatisticsSummaries = new GraphStatisticsSummaries();
 
-		// Map<String, Map<MetricName, Map<String, Double>>>
-		// graphStatisticsSummaries = new HashMap<String, Map<MetricName,
-		// Map<String, Double>>>();
-
 		GraphStatistics graphStatistics = new GraphStatistics();
 		LOGGER.info("Whole graph statistics");
-		graphStatisticsSummaries.put("Whole graph", graphStatistics.getStatisticsForGraph(graph));
+		graphStatisticsSummaries.put(WHOLE_GRAPH, graphStatistics.getStatisticsForGraph(graph));
 		LOGGER.info("Packages only statistics");
-		graphStatisticsSummaries.put("Packages only", graphStatistics.getStatisticsForPackages(graph));
+		graphStatisticsSummaries.put(PACKAGES_ONLY, graphStatistics.getStatisticsForPackages(graph));
 		LOGGER.info("Classes only statistics");
-		graphStatisticsSummaries.put("Classes only", graphStatistics.getStatisticsForClasses(graph));
+		graphStatisticsSummaries.put(CLASSES_ONLY, graphStatistics.getStatisticsForClasses(graph));
 
 		MagnifyExporter magnifyExporter = new MagnifyExporter();
 		LOGGER.info("Magnify export started");

@@ -44,6 +44,7 @@ public class PackageGraphStatisticsToolsTest {
 		}
 	}
 
+	@Ignore
 	@Test
 	public void allDataRunImprovedVersion() {
 		String dataPath = "/home/ballo0/GTI/PHD/iter1/";
@@ -60,8 +61,28 @@ public class PackageGraphStatisticsToolsTest {
 				PackageGraphStatisticsTools packageGraphStatisticsTools = new PackageGraphStatisticsTools();
 				packageGraphStatisticsTools.countOneDirStatsForProject(dataPath, projectName, true);
 			}
+		}
+	}
+
+	@Test
+	public void allDataRunButAddOnlyNewProjects() {
+		String dataPath = "/home/ballo0/GTI/PHD/iter1/";
+		File dataDir = new File(dataPath + "data/");
+		File[] projectsToAnalyze = dataDir.listFiles();
+		for (File f : projectsToAnalyze) {
+			String absolutePath = f.getAbsolutePath();
+
+			String[] pathSplitted = absolutePath.split("/");
+			String projectName = pathSplitted[pathSplitted.length - 1];
+			if (!projectName.startsWith(".")) {
+				LOGGER.info("working with projet: {}", projectName);
+
+				PackageGraphStatisticsTools packageGraphStatisticsTools = new PackageGraphStatisticsTools();
+				packageGraphStatisticsTools.countOneDirStatsIfProjectIsNew(dataPath, projectName, true);
+			}
 
 		}
 
 	}
+
 }

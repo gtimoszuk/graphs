@@ -3,6 +3,7 @@ package pl.edu.mimuw.graphs.exporter.magnify;
 import static com.tinkerpop.blueprints.Direction.IN;
 import static com.tinkerpop.blueprints.Direction.OUT;
 import static pl.edu.mimuw.graphs.api.GraphVertexProperies.NAME;
+import static pl.edu.mimuw.graphs.api.OptionalGraphProperties.COUNT;
 
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
@@ -16,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import pl.edu.mimuw.graphs.importer.utils.SimpleSequence;
+import pl.edu.mimuw.graphs.metrics.Utils;
 
 import com.tinkerpop.blueprints.Edge;
 import com.tinkerpop.blueprints.Graph;
@@ -26,6 +28,7 @@ public class MagnifyExporter {
 	static final Logger LOGGER = LoggerFactory.getLogger(MagnifyExporter.class);
 
 	private final static String KIND_STRING = "\"kind\": ";
+	private final static String COUNT_STRING = "\"count\": ";
 	private final static String METRIC_LINES_OF_CODE_STRING = "\"metric--lines-of-code\": ";
 	private final static String NAME_STRING = "\"name\": ";
 	private final static String PAGE_RANK = "\"page-rank\": ";
@@ -35,6 +38,8 @@ public class MagnifyExporter {
 	private final static String IN_PACKAGE_STRING = "\"in-package\"";
 	private final static String SOURCE_STRING = "\"source\": ";
 	private final static String TARGET_STRING = "\"target\": ";
+
+	private final Utils utils = new Utils();
 
 	public void export(String outPath, Graph graph, String metricToExport, String sizeProperty, String inPackageLabel,
 			String packageImportsLabel) {
@@ -81,11 +86,17 @@ public class MagnifyExporter {
 			throws IOException {
 		jsonWriter.append("{\n");
 		jsonWriter.append(SOURCE_STRING);
-		jsonWriter.append(graphIdToJsonId.get(e.getVertex(OUT).getId()).toString());
+		jsonWriter.append(graphIdToJsonId.get(utils.getIdAsLong(e.getVertex(OUT).getId())).toString());
 		jsonWriter.append(",\n");
 		jsonWriter.append(TARGET_STRING);
-		jsonWriter.append(graphIdToJsonId.get(e.getVertex(IN).getId()).toString());
+		jsonWriter.append(graphIdToJsonId.get(utils.getIdAsLong(e.getVertex(IN).getId())).toString());
 		jsonWriter.append(",\n");
+		jsonWriter.append(COUNT_STRING);
+		if (e.getPropertyKeys().contains(COUNT) && e.getProperty(COUNT) != null) {
+			jsonWriter.append("\"" + e.getProperty(COUNT) + "\",\n");
+		} else {
+			jsonWriter.append("\"1\",\n");
+		}
 		jsonWriter.append(KIND_STRING);
 		if (packageImportsLabel.equals(e.getLabel())) {
 			jsonWriter.append(PACKAGE_IMPORTS_STRING);
@@ -120,7 +131,7 @@ public class MagnifyExporter {
 	private void exportSingleVertex(Vertex v, Writer jsonWriter, Map<Long, Long> graphIdToJsonId,
 			SimpleSequence sequence, String metricToExport, String sizeProperty) throws IOException {
 
-		graphIdToJsonId.put((Long) v.getId(), sequence.getId());
+		graphIdToJsonId.put(utils.getIdAsLong(v.getId()), sequence.getId());
 
 		jsonWriter.append("{\n");
 		jsonWriter.append(NAME_STRING + "\"" + v.getProperty(NAME) + "\",\n");

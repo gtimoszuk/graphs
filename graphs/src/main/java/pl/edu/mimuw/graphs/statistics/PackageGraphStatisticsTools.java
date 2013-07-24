@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import pl.edu.mimuw.graphs.api.MetricName;
 import pl.edu.mimuw.graphs.exporter.magnify.MagnifyExporter;
 import pl.edu.mimuw.graphs.exporter.xls.GraphDataAndStatsToXlsExporter;
-import pl.edu.mimuw.graphs.importer.packages.graph.PackageGraphExpander;
 import pl.edu.mimuw.graphs.importer.packages.graph.PackageGraphImporter;
 import pl.edu.mimuw.graphs.metrics.AfferentCouplingCalculator;
 import pl.edu.mimuw.graphs.metrics.CallsFromOtherPackagesCalculator;
@@ -22,6 +21,7 @@ import pl.edu.mimuw.graphs.metrics.CallsToOtherPackagesCalculator;
 import pl.edu.mimuw.graphs.metrics.ClassesPerPackageCalculator;
 import pl.edu.mimuw.graphs.metrics.EfferentCouplingCalculator;
 import pl.edu.mimuw.graphs.metrics.PageRankCalculator;
+import pl.edu.mimuw.graphs.transformations.PackageGraphExpander;
 
 import com.tinkerpop.blueprints.Graph;
 
@@ -96,9 +96,26 @@ public class PackageGraphStatisticsTools {
 
 	}
 
-	private void countData(String projectName, String resultsDirPath, PackageGraphImporter importer) {
+	public void countData(String projectName, String resultsDirPath, PackageGraphImporter importer) {
 		Graph graph = importer.importGraph();
 		LOGGER.info("Import started");
+		coundData(projectName, resultsDirPath, graph);
+		graph.shutdown();
+
+	}
+
+	public void coundData(String projectName, String resultsDirPath, Graph graph) {
+		coundData(projectName, resultsDirPath, graph, "");
+	}
+
+	public void coundData(String projectName, String resultsDirPath, Graph graph, String infix) {
+		GraphStatisticsSummaries graphStatisticsSummaries = gatherStatistics(graph);
+
+		exporData(projectName, resultsDirPath, graph, infix, graphStatisticsSummaries);
+
+	}
+
+	public GraphStatisticsSummaries gatherStatistics(Graph graph) {
 		PackageGraphExpander packageGraphExpander = new PackageGraphExpander();
 		LOGGER.info("Graph expansion started");
 		packageGraphExpander.expandGraphInPlace(graph);
@@ -127,6 +144,10 @@ public class PackageGraphStatisticsTools {
 		LOGGER.info("Classes per package callculation started");
 		classesPerPackageCalculator.calculate(graph);
 
+		return getGraphStatisticsOndifferentLevel(graph);
+	}
+
+	public GraphStatisticsSummaries getGraphStatisticsOndifferentLevel(Graph graph) {
 		GraphStatisticsSummaries graphStatisticsSummaries = new GraphStatisticsSummaries();
 
 		GraphStatistics graphStatistics = new GraphStatistics();
@@ -136,20 +157,22 @@ public class PackageGraphStatisticsTools {
 		graphStatisticsSummaries.put(PACKAGES_ONLY, graphStatistics.getStatisticsForPackages(graph));
 		LOGGER.info("Classes only statistics");
 		graphStatisticsSummaries.put(CLASSES_ONLY, graphStatistics.getStatisticsForClasses(graph));
+		return graphStatisticsSummaries;
+	}
 
+	public void exporData(String projectName, String resultsDirPath, Graph graph, String infix,
+			GraphStatisticsSummaries graphStatisticsSummaries) {
 		MagnifyExporter magnifyExporter = new MagnifyExporter();
 		LOGGER.info("Magnify export started");
 
 		for (MetricName metricName : MetricName.values()) {
-			magnifyExporter.export(resultsDirPath + projectName + "-" + metricName.name() + "-" + ".json", graph,
-					metricName.name(), PAGE_RANK.name(), CONTAINS.name(), CALLS.name());
+			magnifyExporter.export(resultsDirPath + projectName + "-" + infix + metricName.name() + "-" + ".json",
+					graph, metricName.name(), PAGE_RANK.name(), CONTAINS.name(), CALLS.name());
 		}
 
 		LOGGER.info("XLS export started");
-		graphDataAndStatsToXlsExporter.singleGraphExporter(resultsDirPath + projectName + ".xls", graph,
+		graphDataAndStatsToXlsExporter.singleGraphExporter(resultsDirPath + projectName + infix + ".xls", graph,
 				graphStatisticsSummaries);
-
-		graph.shutdown();
 	}
 
 	public void countOneDirStatsForProject(String projectPath, String workingDir) {

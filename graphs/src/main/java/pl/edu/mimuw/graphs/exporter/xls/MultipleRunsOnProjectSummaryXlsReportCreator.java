@@ -31,6 +31,7 @@ import pl.edu.mimuw.graphs.statistics.GraphStatistics;
 import pl.edu.mimuw.graphs.statistics.GraphStatisticsSummaries;
 import pl.edu.mimuw.graphs.statistics.PackageGraphStatisticsTools;
 
+import com.google.common.base.Joiner;
 import com.tinkerpop.blueprints.Edge;
 import com.tinkerpop.blueprints.Graph;
 import com.tinkerpop.blueprints.Vertex;
@@ -57,13 +58,14 @@ public class MultipleRunsOnProjectSummaryXlsReportCreator {
 	static final Logger LOGGER = LoggerFactory.getLogger(PackageGraphStatisticsTools.class);
 
 	/**
-	 * Generates report for multiple runs. Assumumptions: results are stored in
-	 * a way baseName-runSpecs and there is always base data called baseName
+	 * Generates report for multiple runs. Assumptions: results are stored in a
+	 * way baseName-runSpecs and there is always base data called baseName
 	 * 
 	 * @param path
 	 * @param reportName
 	 */
 	public void createReport(String path, String reportName) {
+		LOGGER.info("working on report:");
 		File dataDir = new File(path + DB);
 		File[] projectsToAnalyze = dataDir.listFiles();
 		for (File f : projectsToAnalyze) {
@@ -90,7 +92,7 @@ public class MultipleRunsOnProjectSummaryXlsReportCreator {
 		}
 
 		for (String projectFamily : projectsSplit.keySet()) {
-			LOGGER.info("working with projet famili: {}", projectFamily);
+			LOGGER.info("working with projet family: {}", projectFamily);
 			generateXlsReport(path, reportName, projectFamily);
 		}
 
@@ -130,7 +132,7 @@ public class MultipleRunsOnProjectSummaryXlsReportCreator {
 		for (String projectName : projectsSplit.get(projectFamily)) {
 			Octet<Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> data = graphStatsMap
 					.get(projectName);
-			Label label = new Label(column, 0, projectName);
+			Label label = new Label(column, 0, createShortLabel(projectName));
 			genStatsSheet.addCell(label);
 			jxl.write.Number number1 = new Number(column, 1, data.getValue0());
 			genStatsSheet.addCell(number1);
@@ -184,8 +186,15 @@ public class MultipleRunsOnProjectSummaryXlsReportCreator {
 			generateLeftLegend(row, sheet);
 			column++;
 
-			for (String projectName : projectsSplit.get(projectFamily)) {
-				Label projectNameLabel = new Label(column, row, projectName);
+			Map<String, String> newFamilyNamesMapping = reorderProjectFamilinyNames(projectsSplit.get(projectFamily));
+			List<String> newNamesList = new ArrayList<String>(newFamilyNamesMapping.keySet());
+			Collections.sort(newNamesList);
+
+			for (String newProjectName : newNamesList) {
+				String projectName = newFamilyNamesMapping.get(newProjectName);
+
+				// tutaj zmienić nazwy projektów
+				Label projectNameLabel = new Label(column, row, createShortLabel(projectName));
 				sheet.addCell(projectNameLabel);
 
 				Map<String, Double> stats = summariesMap.get(projectName).get(subsetName).get(metricName);
@@ -204,6 +213,48 @@ public class MultipleRunsOnProjectSummaryXlsReportCreator {
 
 		}
 
+	}
+
+	private String createShortLabel(String projectName) {
+		String[] firstSplit = projectName.split("-");
+		if (firstSplit.length < 2) {
+			return projectName;
+		} else {
+			String[] nameSplitted = firstSplit[1].split("_");
+			String shortName = shorNameForOps(nameSplitted[0]) + "_" + nameSplitted[2];
+			return shortName;
+		}
+
+	}
+
+	private String shorNameForOps(String string) {
+		if ("move".equals(string)) {
+			return "m";
+		} else if ("swap".equals(string)) {
+			return "s";
+		} else {
+			return "ms";
+		}
+	}
+
+	private Map<String, String> reorderProjectFamilinyNames(List<String> list) {
+		Map<String, String> result = new HashMap<String, String>();
+		for (String projectname : list) {
+			String[] splittedName = projectname.split("_");
+			if (splittedName.length > 1) {
+				Integer i = Integer.parseInt(splittedName[splittedName.length - 1]);
+				if (i < 10) {
+					splittedName[splittedName.length - 1] = "0" + splittedName[splittedName.length - 1];
+				}
+				Joiner joiner = Joiner.on("_");
+				String newName = joiner.join(splittedName);
+				result.put(newName, projectname);
+			} else {
+				result.put(projectname, projectname);
+			}
+		}
+
+		return result;
 	}
 
 	private void generateLeftLegend(int row, WritableSheet sheet) throws RowsExceededException, WriteException {

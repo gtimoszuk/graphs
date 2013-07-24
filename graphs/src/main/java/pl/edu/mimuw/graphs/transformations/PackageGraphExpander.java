@@ -1,15 +1,14 @@
-package pl.edu.mimuw.graphs.importer.packages.graph;
+package pl.edu.mimuw.graphs.transformations;
 
 import static com.tinkerpop.blueprints.Direction.IN;
 import static com.tinkerpop.blueprints.Direction.OUT;
-import static java.lang.Math.max;
 import static pl.edu.mimuw.graphs.api.OptionalGraphProperties.COUNT;
 import pl.edu.mimuw.graphs.importer.utils.SimpleSequence;
 import pl.edu.mimuw.graphs.importer.utils.ToTinkerGraphCloner;
+import pl.edu.mimuw.graphs.metrics.Utils;
 
 import com.tinkerpop.blueprints.Edge;
 import com.tinkerpop.blueprints.Graph;
-import com.tinkerpop.blueprints.Vertex;
 
 /**
  * 
@@ -20,10 +19,12 @@ public class PackageGraphExpander {
 
 	private final ToTinkerGraphCloner toTinkerGraphCloner = new ToTinkerGraphCloner();
 
+	private final Utils utils = new Utils();
+
 	public Graph expandGraphAndReturnNew(Graph graph) {
 
 		SimpleSequence sequence;
-		sequence = new SimpleSequence(getMaxId(graph));
+		sequence = new SimpleSequence(utils.getMaxId(graph));
 
 		Graph expandedGraph = toTinkerGraphCloner.cloneGraphToTinker(graph);
 		for (Edge edge : expandedGraph.getEdges()) {
@@ -42,7 +43,7 @@ public class PackageGraphExpander {
 	public void expandGraphInPlace(Graph graph) {
 
 		SimpleSequence sequence;
-		sequence = new SimpleSequence(getMaxId(graph));
+		sequence = new SimpleSequence(utils.getMaxId(graph));
 
 		for (Edge edge : graph.getEdges()) {
 			if (edge.getPropertyKeys().contains(COUNT)) {
@@ -55,14 +56,4 @@ public class PackageGraphExpander {
 		}
 	}
 
-	private long getMaxId(Graph graph) {
-		long max = 0;
-		for (Vertex v : graph.getVertices()) {
-			max = max(max, (Long) v.getId());
-		}
-		for (Edge e : graph.getEdges()) {
-			max = max(max, (Long) e.getId());
-		}
-		return max;
-	}
 }

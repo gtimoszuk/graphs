@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 public class PackageGraphStatisticsToolsTest {
 
-	static final Logger LOGGER = LoggerFactory.getLogger(PackageGraphStatisticsToolsTest.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(PackageGraphStatisticsToolsTest.class);
 
 	@Ignore
 	@Test

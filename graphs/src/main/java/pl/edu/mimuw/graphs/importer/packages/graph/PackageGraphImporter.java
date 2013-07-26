@@ -70,17 +70,17 @@ public class PackageGraphImporter implements GraphImporter {
 		try {
 			BufferedReader entitiesReader = new BufferedReader(new InputStreamReader(new FileInputStream(entitiesFile)));
 			String line;
-			Map<String, String> classPackageMap = new HashMap<String, String>();
+			Map<String, String> childParentMap = new HashMap<String, String>();
 			while ((line = entitiesReader.readLine()) != null) {
 				LOGGER.trace("line: {}", line);
 				String newLine = line.replace("\n", "");
 				String[] splittedLine = newLine.split(" ");
-				classPackageMap.put(splittedLine[0], splittedLine[1]);
+				childParentMap.put(splittedLine[0], splittedLine[1]);
 			}
 			entitiesReader.close();
-			LOGGER.debug("packageClassMap size: {}", classPackageMap.size());
+			LOGGER.debug("packageClassMap size: {}", childParentMap.size());
 
-			EntitiesImporter entitiesImporter = new EntitiesImporter(packagesMap, classPackageMap, resultGraph,
+			EntitiesImporter entitiesImporter = new EntitiesImporter(packagesMap, childParentMap, resultGraph,
 					sequence);
 			result = entitiesImporter.processEntities();
 		} catch (IOException e) {

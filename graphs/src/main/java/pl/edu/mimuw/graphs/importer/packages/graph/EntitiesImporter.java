@@ -41,9 +41,14 @@ public class EntitiesImporter {
 		Map<String, Vertex> entitiesMap = new HashMap<String, Vertex>();
 		LOGGER.debug("classPackageMap size: {}", classPackageMap.size());
 		for (Entry<String, String> entry : classPackageMap.entrySet()) {
-			Vertex classVertex = graph.addVertex(sequence.getId());
-			classVertex.setProperty(TYPE, CLASS);
-			classVertex.setProperty(GraphVertexProperies.NAME, entry.getKey());
+			Vertex classVertex = null;
+			if (packagesMap.containsKey(entry.getKey())) {
+				classVertex = packagesMap.get(entry.getKey());
+			} else {
+				classVertex = graph.addVertex(sequence.getId());
+				classVertex.setProperty(TYPE, CLASS);
+				classVertex.setProperty(GraphVertexProperies.NAME, entry.getKey());
+			}
 			graph.addEdge(sequence.getId(), graph.getVertex(packagesMap.get(entry.getValue()).getId()), classVertex,
 					GraphRelationshipType.CONTAINS.name());
 			entitiesMap.put(entry.getKey(), classVertex);

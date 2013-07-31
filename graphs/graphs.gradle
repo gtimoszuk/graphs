@@ -1,6 +1,7 @@
 
 dependencies {
 	compile project (':graphs-api')
+	compile project (':graphs-utils')
 	testCompile junitDep
 	
 	compile logbackClassicDep	

@@ -1,0 +1,9 @@
+dependencies {
+	testCompile junitDep
+	compile project (':graphs-api')
+	compile project (':graphs')
+	compile project (':graphs-utils')
+
+}
+
+ 

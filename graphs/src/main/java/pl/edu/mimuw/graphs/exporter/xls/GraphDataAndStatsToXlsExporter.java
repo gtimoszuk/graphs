@@ -70,14 +70,14 @@ public class GraphDataAndStatsToXlsExporter {
 	}
 
 	private void writeSingleVertexData(Graph graph, WritableSheet sheet) throws WriteException, RowsExceededException {
-		int r = 1;
+		int row = 1;
 		for (Vertex v : graph.getVertices()) {
 			if (v.getProperty(NAME) != null) {
-				Label name = new Label(0, r, (String) v.getProperty(NAME));
+				Label name = new Label(0, row, (String) v.getProperty(NAME));
 				sheet.addCell(name);
-				Label type = new Label(1, r, (String) v.getProperty(TYPE));
+				Label type = new Label(1, row, (String) v.getProperty(TYPE));
 				sheet.addCell(type);
-				int c = 2;
+				int column = 2;
 
 				for (MetricName metricName : MetricName.values()) {
 					if (v.getProperty(metricName.name()) != null) {
@@ -89,15 +89,15 @@ public class GraphDataAndStatsToXlsExporter {
 							result = ((Integer) propertyObject).doubleValue();
 
 						}
-						Number number = new Number(c, r, result);
+						Number number = new Number(column, row, result);
 						sheet.addCell(number);
 					} else {
-						Number number = new Number(c, r, Double.NaN);
+						Number number = new Number(column, row, Double.NaN);
 						sheet.addCell(number);
 					}
-					c++;
+					column++;
 				}
-				r++;
+				row++;
 			}
 		}
 	}
@@ -129,16 +129,16 @@ public class GraphDataAndStatsToXlsExporter {
 
 	private int writeSummaryData(WritableSheet sheet, Map<MetricName, Map<String, Double>> map, int i)
 			throws WriteException, RowsExceededException {
-		int c = 1;
+		int column = 1;
 		for (MetricName metricName : MetricName.values()) {
 			Map<String, Double> currentStats = map.get(metricName);
-			int r = i;
+			int row = i;
 			for (GraphStatististicsName graphStatististicsName : GraphStatististicsName.values()) {
-				jxl.write.Number number = new Number(c, r, currentStats.get(graphStatististicsName.name()));
+				jxl.write.Number number = new Number(column, row, currentStats.get(graphStatististicsName.name()));
 				sheet.addCell(number);
-				r++;
+				row++;
 			}
-			c++;
+			column++;
 		}
 
 		i += MetricName.values().length;

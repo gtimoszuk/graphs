@@ -21,7 +21,9 @@ public class NightTest {
 
 	private final static String DB = "db/";
 	private final static String RESULTS = "results/";
-	private final static String DATA_PATH = "/home/ballo0/GTI/PHD/callCountExp/";
+	// private final static String DATA_PATH =
+	// "/home/ballo0/GTI/PHD/callCountExp/";
+	private final static String DATA_PATH = "/home/ballo0/GTI/PHD/iter1/";
 
 	private final GraphShrinkerToPackagesOnlyGraph graphShrinker = new GraphShrinkerToPackagesOnlyGraph();
 

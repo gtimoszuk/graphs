@@ -1,7 +1,7 @@
 package pl.edu.mimuw.graphs.exporter.xls;
 
-import static pl.edu.mimuw.graphs.api.GraphVertexProperies.NAME;
-import static pl.edu.mimuw.graphs.api.GraphVertexProperies.TYPE;
+import static pl.edu.mimuw.graphs.GraphVertexProperies.NAME;
+import static pl.edu.mimuw.graphs.GraphVertexProperies.TYPE;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,9 +15,9 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
-import pl.edu.mimuw.graphs.api.GraphStatististicsName;
-import pl.edu.mimuw.graphs.api.MetricName;
+import pl.edu.mimuw.graphs.metrics.MetricName;
 import pl.edu.mimuw.graphs.statistics.GraphStatisticsSummaries;
+import pl.edu.mimuw.graphs.statistics.GraphStatististicsName;
 
 import com.tinkerpop.blueprints.Graph;
 import com.tinkerpop.blueprints.Vertex;

@@ -3,9 +3,9 @@ package pl.edu.mimuw.graphs.transformations;
 import static com.tinkerpop.blueprints.Direction.BOTH;
 import static com.tinkerpop.blueprints.Direction.IN;
 import static com.tinkerpop.blueprints.Direction.OUT;
-import static pl.edu.mimuw.graphs.api.GraphRelationshipType.CALLS;
-import static pl.edu.mimuw.graphs.api.GraphVertexProperies.TYPE;
-import static pl.edu.mimuw.graphs.api.GraphVertexTypes.CLASS;
+import static pl.edu.mimuw.graphs.GraphRelationshipType.CALLS;
+import static pl.edu.mimuw.graphs.GraphVertexProperies.TYPE;
+import static pl.edu.mimuw.graphs.GraphVertexTypes.CLASS;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,7 +15,7 @@ import java.util.Stack;
 
 import org.javatuples.Pair;
 
-import pl.edu.mimuw.graphs.api.OptionalGraphProperties;
+import pl.edu.mimuw.graphs.OptionalGraphProperties;
 import pl.edu.mimuw.graphs.importer.utils.SimpleSequence;
 import pl.edu.mimuw.graphs.importer.utils.ToTinkerGraphCloner;
 import pl.edu.mimuw.graphs.metrics.Utils;

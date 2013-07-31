@@ -2,7 +2,7 @@ package pl.edu.mimuw.graphs.metrics;
 
 import static com.tinkerpop.blueprints.Direction.IN;
 import static com.tinkerpop.blueprints.Direction.OUT;
-import static pl.edu.mimuw.graphs.api.MetricName.CALLS_FROM_OTHER_PACKAGES;
+import static pl.edu.mimuw.graphs.metrics.MetricName.CALLS_FROM_OTHER_PACKAGES;
 
 import java.util.Set;
 

@@ -2,7 +2,7 @@ package pl.edu.mimuw.graphs.metrics;
 
 import static com.tinkerpop.blueprints.Direction.IN;
 import static com.tinkerpop.blueprints.Direction.OUT;
-import static pl.edu.mimuw.graphs.api.MetricName.EFFERENT_COUPLING;
+import static pl.edu.mimuw.graphs.metrics.MetricName.EFFERENT_COUPLING;
 
 import java.util.Set;
 

@@ -1,14 +1,14 @@
 package pl.edu.mimuw.graphs.statistics;
 
-import static pl.edu.mimuw.graphs.api.GraphStatististicsName.MAX;
-import static pl.edu.mimuw.graphs.api.GraphStatististicsName.MEAN;
-import static pl.edu.mimuw.graphs.api.GraphStatististicsName.MEDIAN;
-import static pl.edu.mimuw.graphs.api.GraphStatististicsName.MIN;
-import static pl.edu.mimuw.graphs.api.GraphStatististicsName.STD;
-import static pl.edu.mimuw.graphs.api.GraphStatististicsName.SUM;
-import static pl.edu.mimuw.graphs.api.GraphVertexProperies.TYPE;
-import static pl.edu.mimuw.graphs.api.GraphVertexTypes.CLASS;
-import static pl.edu.mimuw.graphs.api.GraphVertexTypes.PACKAGE;
+import static pl.edu.mimuw.graphs.GraphVertexProperies.TYPE;
+import static pl.edu.mimuw.graphs.GraphVertexTypes.CLASS;
+import static pl.edu.mimuw.graphs.GraphVertexTypes.PACKAGE;
+import static pl.edu.mimuw.graphs.statistics.GraphStatististicsName.MAX;
+import static pl.edu.mimuw.graphs.statistics.GraphStatististicsName.MEAN;
+import static pl.edu.mimuw.graphs.statistics.GraphStatististicsName.MEDIAN;
+import static pl.edu.mimuw.graphs.statistics.GraphStatististicsName.MIN;
+import static pl.edu.mimuw.graphs.statistics.GraphStatististicsName.STD;
+import static pl.edu.mimuw.graphs.statistics.GraphStatististicsName.SUM;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +18,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import pl.edu.mimuw.graphs.api.MetricName;
+import pl.edu.mimuw.graphs.metrics.MetricName;
 
 import com.tinkerpop.blueprints.Graph;
 import com.tinkerpop.blueprints.Vertex;

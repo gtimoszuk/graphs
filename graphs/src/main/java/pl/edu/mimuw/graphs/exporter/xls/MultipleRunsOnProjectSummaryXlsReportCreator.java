@@ -1,8 +1,8 @@
 package pl.edu.mimuw.graphs.exporter.xls;
 
-import static pl.edu.mimuw.graphs.api.GraphVertexProperies.TYPE;
-import static pl.edu.mimuw.graphs.api.GraphVertexTypes.CLASS;
-import static pl.edu.mimuw.graphs.api.GraphVertexTypes.PACKAGE;
+import static pl.edu.mimuw.graphs.GraphVertexProperies.TYPE;
+import static pl.edu.mimuw.graphs.GraphVertexTypes.CLASS;
+import static pl.edu.mimuw.graphs.GraphVertexTypes.PACKAGE;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,11 +24,11 @@ import org.javatuples.Octet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import pl.edu.mimuw.graphs.api.GraphRelationshipType;
-import pl.edu.mimuw.graphs.api.GraphStatististicsName;
-import pl.edu.mimuw.graphs.api.MetricName;
+import pl.edu.mimuw.graphs.GraphRelationshipType;
+import pl.edu.mimuw.graphs.metrics.MetricName;
 import pl.edu.mimuw.graphs.statistics.GraphStatistics;
 import pl.edu.mimuw.graphs.statistics.GraphStatisticsSummaries;
+import pl.edu.mimuw.graphs.statistics.GraphStatististicsName;
 import pl.edu.mimuw.graphs.statistics.PackageGraphStatisticsTools;
 
 import com.google.common.base.Joiner;

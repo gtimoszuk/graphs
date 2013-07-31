@@ -3,7 +3,7 @@ package pl.edu.mimuw.graphs.metrics;
 import static com.tinkerpop.blueprints.Direction.IN;
 import static com.tinkerpop.blueprints.Direction.OUT;
 import static java.lang.Math.max;
-import static pl.edu.mimuw.graphs.api.GraphVertexProperies.NAME;
+import static pl.edu.mimuw.graphs.GraphVertexProperies.NAME;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,7 +11,7 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import pl.edu.mimuw.graphs.api.GraphRelationshipType;
+import pl.edu.mimuw.graphs.GraphRelationshipType;
 
 import com.tinkerpop.blueprints.Direction;
 import com.tinkerpop.blueprints.Edge;

@@ -1,7 +1,7 @@
 package pl.edu.mimuw.graphs.metrics;
 
-import static pl.edu.mimuw.graphs.api.GraphRelationshipType.CALLS;
-import static pl.edu.mimuw.graphs.api.GraphRelationshipType.CONTAINS;
+import static pl.edu.mimuw.graphs.GraphRelationshipType.CALLS;
+import static pl.edu.mimuw.graphs.GraphRelationshipType.CONTAINS;
 
 import java.util.HashSet;
 import java.util.Set;

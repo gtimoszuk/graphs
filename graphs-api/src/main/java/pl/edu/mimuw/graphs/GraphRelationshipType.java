@@ -1,4 +1,4 @@
-package pl.edu.mimuw.graphs.api;
+package pl.edu.mimuw.graphs;
 
 import org.neo4j.graphdb.RelationshipType;
 

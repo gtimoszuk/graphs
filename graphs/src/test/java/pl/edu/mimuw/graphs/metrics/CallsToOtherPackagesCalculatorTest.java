@@ -1,8 +1,8 @@
 package pl.edu.mimuw.graphs.metrics;
 
-import static pl.edu.mimuw.graphs.api.GraphVertexProperies.NAME;
-import static pl.edu.mimuw.graphs.api.GraphVertexProperies.TYPE;
-import static pl.edu.mimuw.graphs.api.MetricName.CALLS_TO_OTHER_PACKAGES;
+import static pl.edu.mimuw.graphs.GraphVertexProperies.NAME;
+import static pl.edu.mimuw.graphs.GraphVertexProperies.TYPE;
+import static pl.edu.mimuw.graphs.metrics.MetricName.CALLS_TO_OTHER_PACKAGES;
 
 import org.junit.Test;
 import org.slf4j.Logger;

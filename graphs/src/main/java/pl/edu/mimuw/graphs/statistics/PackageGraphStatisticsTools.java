@@ -1,8 +1,8 @@
 package pl.edu.mimuw.graphs.statistics;
 
-import static pl.edu.mimuw.graphs.api.GraphRelationshipType.CALLS;
-import static pl.edu.mimuw.graphs.api.GraphRelationshipType.CONTAINS;
-import static pl.edu.mimuw.graphs.api.MetricName.PAGE_RANK;
+import static pl.edu.mimuw.graphs.GraphRelationshipType.CALLS;
+import static pl.edu.mimuw.graphs.GraphRelationshipType.CONTAINS;
+import static pl.edu.mimuw.graphs.metrics.MetricName.PAGE_RANK;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,7 +11,6 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import pl.edu.mimuw.graphs.api.MetricName;
 import pl.edu.mimuw.graphs.exporter.magnify.MagnifyExporter;
 import pl.edu.mimuw.graphs.exporter.xls.GraphDataAndStatsToXlsExporter;
 import pl.edu.mimuw.graphs.importer.packages.graph.PackageGraphImporter;
@@ -20,6 +19,7 @@ import pl.edu.mimuw.graphs.metrics.CallsFromOtherPackagesCalculator;
 import pl.edu.mimuw.graphs.metrics.CallsToOtherPackagesCalculator;
 import pl.edu.mimuw.graphs.metrics.ClassesPerPackageCalculator;
 import pl.edu.mimuw.graphs.metrics.EfferentCouplingCalculator;
+import pl.edu.mimuw.graphs.metrics.MetricName;
 import pl.edu.mimuw.graphs.metrics.PageRankCalculator;
 import pl.edu.mimuw.graphs.transformations.PackageGraphExpander;
 

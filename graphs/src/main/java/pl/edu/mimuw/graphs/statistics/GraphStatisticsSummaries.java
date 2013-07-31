@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import pl.edu.mimuw.graphs.api.MetricName;
+import pl.edu.mimuw.graphs.metrics.MetricName;
 
 public class GraphStatisticsSummaries {
 

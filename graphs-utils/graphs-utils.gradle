@@ -1,5 +1,13 @@
 dependencies {
+	compile project (':graphs-api')
+	
 	testCompile junitDep
+	
+	compile blueprintsNeo4jDep
+	compile blueprintsCoreDep
+	
+	compile logbackClassicDep
+	compile slf4jApiDep
 
 }
 

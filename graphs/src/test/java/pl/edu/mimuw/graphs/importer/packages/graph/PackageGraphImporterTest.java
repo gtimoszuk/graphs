@@ -1,7 +1,7 @@
 package pl.edu.mimuw.graphs.importer.packages.graph;
 
-import static pl.edu.mimuw.graphs.api.GraphVertexProperies.NAME;
-import static pl.edu.mimuw.graphs.api.GraphVertexProperies.TYPE;
+import static pl.edu.mimuw.graphs.GraphVertexProperies.NAME;
+import static pl.edu.mimuw.graphs.GraphVertexProperies.TYPE;
 
 import org.junit.After;
 import org.junit.Before;

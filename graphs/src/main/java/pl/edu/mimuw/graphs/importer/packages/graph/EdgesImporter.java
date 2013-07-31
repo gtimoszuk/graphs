@@ -7,8 +7,8 @@ import org.javatuples.Triplet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import pl.edu.mimuw.graphs.api.GraphRelationshipType;
-import pl.edu.mimuw.graphs.api.OptionalGraphProperties;
+import pl.edu.mimuw.graphs.GraphRelationshipType;
+import pl.edu.mimuw.graphs.OptionalGraphProperties;
 import pl.edu.mimuw.graphs.importer.utils.SimpleSequence;
 
 import com.tinkerpop.blueprints.Edge;

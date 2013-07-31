@@ -1,13 +1,13 @@
 package pl.edu.mimuw.graphs.metrics;
 
-import static pl.edu.mimuw.graphs.api.GraphVertexTypes.CLASS;
+import static pl.edu.mimuw.graphs.GraphVertexTypes.CLASS;
 
 import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import pl.edu.mimuw.graphs.api.GraphVertexProperies;
+import pl.edu.mimuw.graphs.GraphVertexProperies;
 
 import com.tinkerpop.blueprints.Edge;
 import com.tinkerpop.blueprints.Graph;

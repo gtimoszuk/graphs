@@ -2,8 +2,8 @@ package pl.edu.mimuw.graphs.exporter.magnify;
 
 import static com.tinkerpop.blueprints.Direction.IN;
 import static com.tinkerpop.blueprints.Direction.OUT;
-import static pl.edu.mimuw.graphs.api.GraphVertexProperies.NAME;
-import static pl.edu.mimuw.graphs.api.OptionalGraphProperties.COUNT;
+import static pl.edu.mimuw.graphs.GraphVertexProperies.NAME;
+import static pl.edu.mimuw.graphs.OptionalGraphProperties.COUNT;
 
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;

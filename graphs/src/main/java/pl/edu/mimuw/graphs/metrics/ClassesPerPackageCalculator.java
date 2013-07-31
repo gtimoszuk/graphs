@@ -2,15 +2,15 @@ package pl.edu.mimuw.graphs.metrics;
 
 import static com.tinkerpop.blueprints.Direction.IN;
 import static com.tinkerpop.blueprints.Direction.OUT;
-import static pl.edu.mimuw.graphs.api.GraphRelationshipType.CONTAINS;
-import static pl.edu.mimuw.graphs.api.GraphVertexTypes.CLASS;
-import static pl.edu.mimuw.graphs.api.GraphVertexTypes.PACKAGE;
-import static pl.edu.mimuw.graphs.api.MetricName.CLASSES_PER_PACKAGE;
+import static pl.edu.mimuw.graphs.GraphRelationshipType.CONTAINS;
+import static pl.edu.mimuw.graphs.GraphVertexTypes.CLASS;
+import static pl.edu.mimuw.graphs.GraphVertexTypes.PACKAGE;
+import static pl.edu.mimuw.graphs.metrics.MetricName.CLASSES_PER_PACKAGE;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import pl.edu.mimuw.graphs.api.GraphVertexProperies;
+import pl.edu.mimuw.graphs.GraphVertexProperies;
 
 import com.tinkerpop.blueprints.Edge;
 import com.tinkerpop.blueprints.Graph;

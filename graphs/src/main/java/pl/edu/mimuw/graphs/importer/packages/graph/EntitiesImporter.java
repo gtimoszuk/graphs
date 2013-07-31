@@ -1,7 +1,7 @@
 package pl.edu.mimuw.graphs.importer.packages.graph;
 
-import static pl.edu.mimuw.graphs.api.GraphVertexProperies.TYPE;
-import static pl.edu.mimuw.graphs.api.GraphVertexTypes.CLASS;
+import static pl.edu.mimuw.graphs.GraphVertexProperies.TYPE;
+import static pl.edu.mimuw.graphs.GraphVertexTypes.CLASS;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,8 +10,8 @@ import java.util.Map.Entry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import pl.edu.mimuw.graphs.api.GraphRelationshipType;
-import pl.edu.mimuw.graphs.api.GraphVertexProperies;
+import pl.edu.mimuw.graphs.GraphRelationshipType;
+import pl.edu.mimuw.graphs.GraphVertexProperies;
 import pl.edu.mimuw.graphs.importer.utils.SimpleSequence;
 
 import com.tinkerpop.blueprints.Graph;

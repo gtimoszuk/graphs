@@ -1,6 +1,11 @@
 dependencies {
 	testCompile junitDep
 
+	compile blueprintsCoreDep
+	
+	compile logbackClassicDep
+	compile slf4jApiDep
+	compile blueprintsNeo4jDep
 }
 
  

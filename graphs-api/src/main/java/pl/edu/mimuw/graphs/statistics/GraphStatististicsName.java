@@ -1,4 +1,4 @@
-package pl.edu.mimuw.graphs.api;
+package pl.edu.mimuw.graphs.statistics;
 
 public enum GraphStatististicsName {
 

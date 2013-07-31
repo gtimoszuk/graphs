@@ -1,6 +1,6 @@
 package pl.edu.mimuw.graphs.metrics;
 
-import static pl.edu.mimuw.graphs.api.MetricName.PAGE_RANK;
+import static pl.edu.mimuw.graphs.metrics.MetricName.PAGE_RANK;
 
 import com.tinkerpop.blueprints.Edge;
 import com.tinkerpop.blueprints.Graph;

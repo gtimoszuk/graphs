@@ -2,7 +2,7 @@ package pl.edu.mimuw.graphs.transformations;
 
 import static com.tinkerpop.blueprints.Direction.IN;
 import static com.tinkerpop.blueprints.Direction.OUT;
-import static pl.edu.mimuw.graphs.api.OptionalGraphProperties.COUNT;
+import static pl.edu.mimuw.graphs.OptionalGraphProperties.COUNT;
 import pl.edu.mimuw.graphs.importer.utils.SimpleSequence;
 import pl.edu.mimuw.graphs.importer.utils.ToTinkerGraphCloner;
 import pl.edu.mimuw.graphs.metrics.Utils;

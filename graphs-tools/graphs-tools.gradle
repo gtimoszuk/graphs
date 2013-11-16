@@ -1,5 +1,8 @@
 dependencies {
 	testCompile junitDep
+	testCompile springTestDep
+	testCompile project (':graphs').sourceSets.test.output
+	
 	compile project (':graphs-api')
 	compile project (':graphs')
 	compile project (':graphs-utils')

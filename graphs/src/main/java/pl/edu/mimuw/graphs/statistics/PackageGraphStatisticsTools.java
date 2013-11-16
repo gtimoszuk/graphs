@@ -3,6 +3,9 @@ package pl.edu.mimuw.graphs.statistics;
 import static pl.edu.mimuw.graphs.GraphRelationshipType.CALLS;
 import static pl.edu.mimuw.graphs.GraphRelationshipType.CONTAINS;
 import static pl.edu.mimuw.graphs.metrics.MetricName.PAGE_RANK;
+import static pl.edu.mimuw.graphs.services.projects.ProjectsConstants.DATA_SUFFIX;
+import static pl.edu.mimuw.graphs.services.projects.ProjectsConstants.DB_SUFFIX;
+import static pl.edu.mimuw.graphs.services.projects.ProjectsConstants.RESULTS_SUFFIX;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,10 +13,11 @@ import java.io.IOException;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import pl.edu.mimuw.graphs.exporter.magnify.MagnifyExporter;
 import pl.edu.mimuw.graphs.exporter.xls.GraphDataAndStatsToXlsExporter;
-import pl.edu.mimuw.graphs.importer.packages.graph.PackageGraphImporter;
+import pl.edu.mimuw.graphs.importer.packages.graph.GraphImporter;
 import pl.edu.mimuw.graphs.metrics.AfferentCouplingCalculator;
 import pl.edu.mimuw.graphs.metrics.CallsFromOtherPackagesCalculator;
 import pl.edu.mimuw.graphs.metrics.CallsToOtherPackagesCalculator;
@@ -34,16 +38,14 @@ public class PackageGraphStatisticsTools {
 	static final Logger LOGGER = LoggerFactory.getLogger(PackageGraphStatisticsTools.class);
 
 	private final GraphDataAndStatsToXlsExporter graphDataAndStatsToXlsExporter = new GraphDataAndStatsToXlsExporter();
-	private final PackageGraphImporter importer = new PackageGraphImporter();
 
-	private final static String DATA = "data/";
-	private final static String DB = "db/";
-	private final static String RESULTS = "results/";
+	@Autowired
+	private GraphImporter importer;
 
 	public void countOneDirStatsIfProjectIsNew(String workingDir, String projectName, boolean ifToSaveDB) {
-		String dataDirPath = workingDir + DATA + projectName + "/";
-		String dbDirPath = workingDir + DB + projectName + "/";
-		String resultsDirPath = workingDir + RESULTS + projectName + "/";
+		String dataDirPath = workingDir + DATA_SUFFIX + projectName + "/";
+		String dbDirPath = workingDir + DB_SUFFIX + projectName + "/";
+		String resultsDirPath = workingDir + RESULTS_SUFFIX + projectName + "/";
 		File resultDir = new File(resultsDirPath);
 		if (!resultDir.exists()) {
 			resultDir.mkdirs();
@@ -67,9 +69,9 @@ public class PackageGraphStatisticsTools {
 
 	public void countOneDirStatsForProject(String workingDir, String projectName, boolean ifToSaveDB) {
 		// preparing paths and dirs
-		String dataDirPath = workingDir + DATA + projectName + "/";
-		String dbDirPath = workingDir + DB + projectName + "/";
-		String resultsDirPath = workingDir + RESULTS + projectName + "/";
+		String dataDirPath = workingDir + DATA_SUFFIX + projectName + "/";
+		String dbDirPath = workingDir + DB_SUFFIX + projectName + "/";
+		String resultsDirPath = workingDir + RESULTS_SUFFIX + projectName + "/";
 		File resultDir = new File(resultsDirPath);
 		if (!resultDir.exists()) {
 			resultDir.mkdirs();
@@ -175,7 +177,7 @@ public class PackageGraphStatisticsTools {
 		String[] pathSplitted = projectPath.split("/");
 		String projectName = pathSplitted[pathSplitted.length - 1];
 
-		String resultsDirPath = workingDir + RESULTS + projectName + "/";
+		String resultsDirPath = workingDir + RESULTS_SUFFIX + projectName + "/";
 
 		LOGGER.info("Work starting with {}", projectName);
 

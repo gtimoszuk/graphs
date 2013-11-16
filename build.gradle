@@ -1,7 +1,7 @@
 project.ext.version = "0.1"
 
 subprojects {
-	sourceCompatibility = JavaVersion.VERSION_1_6
+	sourceCompatibility = JavaVersion.VERSION_1_7
         apply plugin: 'eclipse'
         apply plugin: 'groovy'
        

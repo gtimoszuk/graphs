@@ -49,6 +49,15 @@ public class EntitiesImporter {
 				classVertex.setProperty(TYPE, CLASS);
 				classVertex.setProperty(GraphVertexProperies.NAME, entry.getKey());
 			}
+
+			for (Entry<String, Vertex> e : packagesMap.entrySet()) {
+				LOGGER.info(e.getKey());
+			}
+			LOGGER.trace(entry.getValue());
+			LOGGER.trace(packagesMap.get(entry.getValue()).toString());
+			LOGGER.trace(packagesMap.get(entry.getValue()).getId().toString());
+			LOGGER.trace(graph.getVertex(packagesMap.get(entry.getValue()).getId()).toString());
+
 			graph.addEdge(sequence.getId(), graph.getVertex(packagesMap.get(entry.getValue()).getId()), classVertex,
 					GraphRelationshipType.CONTAINS.name());
 			entitiesMap.put(entry.getKey(), classVertex);

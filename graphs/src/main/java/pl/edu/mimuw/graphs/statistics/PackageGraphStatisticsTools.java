@@ -34,6 +34,7 @@ public class PackageGraphStatisticsTools {
 	static final Logger LOGGER = LoggerFactory.getLogger(PackageGraphStatisticsTools.class);
 
 	private final GraphDataAndStatsToXlsExporter graphDataAndStatsToXlsExporter = new GraphDataAndStatsToXlsExporter();
+	private final PackageGraphImporter importer = new PackageGraphImporter();
 
 	private final static String DATA = "data/";
 	private final static String DB = "db/";
@@ -50,16 +51,14 @@ public class PackageGraphStatisticsTools {
 
 		LOGGER.info("Work starting with {}", projectName);
 
-		// setting up importer and cleaning dirs
-		PackageGraphImporter importer = null;
 		if (!ifToSaveDB) {
-			importer = new PackageGraphImporter(dataDirPath);
-			countData(projectName, resultsDirPath, importer);
+			Graph graph = importer.importGraph(dataDirPath);
+			countData(projectName, resultsDirPath, graph);
 		} else {
 			File dbDir = new File(dbDirPath);
 			if (!dbDir.exists()) {
-				importer = new PackageGraphImporter(dataDirPath, dbDirPath);
-				countData(projectName, resultsDirPath, importer);
+				Graph graph = importer.importGraph(dataDirPath, dataDirPath);
+				countData(projectName, resultsDirPath, graph);
 			} else {
 				LOGGER.info("Project already processed. Exiiting");
 			}
@@ -75,13 +74,12 @@ public class PackageGraphStatisticsTools {
 		if (!resultDir.exists()) {
 			resultDir.mkdirs();
 		}
-
 		LOGGER.info("Work starting with {}", projectName);
 
 		// setting up importer and cleaning dirs
-		PackageGraphImporter importer = null;
+		Graph graph = null;
 		if (!ifToSaveDB) {
-			importer = new PackageGraphImporter(dataDirPath);
+			graph = importer.importGraph(dataDirPath);
 		} else {
 			File dbDir = new File(dbDirPath);
 			try {
@@ -89,15 +87,13 @@ public class PackageGraphStatisticsTools {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			importer = new PackageGraphImporter(dataDirPath, dbDirPath);
+			graph = importer.importGraph(dataDirPath, dbDirPath);
 		}
-
-		countData(projectName, resultsDirPath, importer);
+		countData(projectName, resultsDirPath, graph);
 
 	}
 
-	public void countData(String projectName, String resultsDirPath, PackageGraphImporter importer) {
-		Graph graph = importer.importGraph();
+	public void countData(String projectName, String resultsDirPath, Graph graph) {
 		LOGGER.info("Import started");
 		coundData(projectName, resultsDirPath, graph);
 		graph.shutdown();
@@ -182,9 +178,9 @@ public class PackageGraphStatisticsTools {
 		String resultsDirPath = workingDir + RESULTS + projectName + "/";
 
 		LOGGER.info("Work starting with {}", projectName);
-		PackageGraphImporter importer = new PackageGraphImporter(projectPath);
 
-		countData(projectName, resultsDirPath, importer);
+		Graph graph = importer.importGraph(projectPath);
+		countData(projectName, resultsDirPath, graph);
 
 	}
 

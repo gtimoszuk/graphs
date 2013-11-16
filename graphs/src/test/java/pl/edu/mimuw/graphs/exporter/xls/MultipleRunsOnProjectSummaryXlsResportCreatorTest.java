@@ -17,6 +17,7 @@ public class MultipleRunsOnProjectSummaryXlsResportCreatorTest {
 		reportCreator.createReport("/home/ballo0/GTI/PHD/iter1/", "base1");
 	}
 
+	@Ignore
 	@Test
 	public void fullTest() {
 		MultipleRunsOnProjectSummaryXlsReportCreator reportCreator = new MultipleRunsOnProjectSummaryXlsReportCreator();

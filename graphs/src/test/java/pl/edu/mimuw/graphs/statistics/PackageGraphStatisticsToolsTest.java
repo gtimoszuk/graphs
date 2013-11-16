@@ -11,7 +11,7 @@ public class PackageGraphStatisticsToolsTest {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(PackageGraphStatisticsToolsTest.class);
 
-	@Ignore
+	@Ignore("passes always")
 	@Test
 	public void junitOriginalest() {
 		PackageGraphStatisticsTools packageGraphStatisticsTools = new PackageGraphStatisticsTools();

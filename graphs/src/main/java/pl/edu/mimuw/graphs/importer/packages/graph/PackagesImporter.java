@@ -28,7 +28,6 @@ public class PackagesImporter {
 
 	private final Set<String> packageStringSet;
 	private final Graph graph;
-	private final Map<String, Vertex> packagesMap = new HashMap<String, Vertex>();
 	private final SimpleSequence sequence;
 
 	public PackagesImporter(Set<String> packagesSet, Graph graph, SimpleSequence sequence) {
@@ -38,27 +37,28 @@ public class PackagesImporter {
 	}
 
 	public Map<String, Vertex> processPackages() {
+		Map<String, Vertex> packagesMap = new HashMap<String, Vertex>();
 		for (String packageString : packageStringSet) {
-			processSinglePackage(packageString);
+			processSinglePackage(packageString, packagesMap);
 		}
 		return packagesMap;
 	}
 
-	private void processSinglePackage(String packageString) {
+	private void processSinglePackage(String packageString, Map<String, Vertex> packagesMap) {
 
-		String[] splittedPackageString = packageString.split("/");
-		LOGGER.trace("working with packageString: {}", packageString);
+		String[] packageNameAndTree = packageString.split(" ");
+		LOGGER.trace("working with packageString: {}", packageNameAndTree[0]);
+		String[] splittedPackageString = packageNameAndTree[0].split("/");
 		int arraySize = splittedPackageString.length;
 		StringBuffer packageBuffer = new StringBuffer();
 		String parentPackageName = null;
 		for (int i = 0; i < arraySize; i++) {
 			packageBuffer.append(splittedPackageString[i]);
 			String currentPackageName = packageBuffer.toString();
+			LOGGER.trace("currentPackageName {}", currentPackageName);
 			if (!packagesMap.containsKey(currentPackageName)) {
 				// keep in mind neo4j uses own id,
-				Vertex currentVertex = graph.addVertex(sequence.getId());
-				currentVertex.setProperty(NAME, currentPackageName);
-				currentVertex.setProperty(TYPE, PACKAGE);
+				Vertex currentVertex = addPackageVertex(currentPackageName);
 				packagesMap.put(currentPackageName, currentVertex);
 				if (parentPackageName != null) {
 					graph.addEdge(sequence.getId(), packagesMap.get(parentPackageName), currentVertex,
@@ -69,5 +69,12 @@ public class PackagesImporter {
 			parentPackageName = currentPackageName;
 			packageBuffer.append("/");
 		}
+	}
+
+	public Vertex addPackageVertex(String currentPackageName) {
+		Vertex currentVertex = graph.addVertex(sequence.getId());
+		currentVertex.setProperty(NAME, currentPackageName);
+		currentVertex.setProperty(TYPE, PACKAGE);
+		return currentVertex;
 	}
 }

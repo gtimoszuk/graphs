@@ -15,6 +15,7 @@ import pl.edu.mimuw.graphs.transformations.GraphShrinkerToPackagesOnlyGraph;
 import com.tinkerpop.blueprints.Graph;
 import com.tinkerpop.blueprints.impls.neo4j.Neo4jGraph;
 
+@Ignore
 public class NightTest2 {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(NightTest2.class);
@@ -27,6 +28,7 @@ public class NightTest2 {
 
 	private final PackageGraphStatisticsTools graphStatisticsTools = new PackageGraphStatisticsTools();
 
+	@Ignore
 	@Test
 	public void nightTest() {
 		// allDataRunButAddOnlyNewProjects();

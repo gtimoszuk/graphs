@@ -30,22 +30,17 @@ import com.tinkerpop.blueprints.Vertex;
  */
 public class GraphDataAndStatsToXlsExporter {
 
-	public void singleGraphExporter(String outPath, Graph graph, GraphStatisticsSummaries graphStatisticsSummaries) {
-		try {
-			WritableWorkbook workbook = Workbook.createWorkbook(new File(outPath));
+	public void singleGraphExporter(String outPath, Graph graph, GraphStatisticsSummaries graphStatisticsSummaries)
+			throws IOException, JXLException {
 
-			writeSummary(graph, workbook, graphStatisticsSummaries);
-			writeData(graph, workbook);
+		WritableWorkbook workbook = Workbook.createWorkbook(new File(outPath));
 
-			workbook.write();
-			workbook.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JXLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		writeSummary(graph, workbook, graphStatisticsSummaries);
+		writeData(graph, workbook);
+
+		workbook.write();
+		workbook.close();
+
 	}
 
 	private void writeData(Graph graph, WritableWorkbook workbook) throws RowsExceededException, WriteException {

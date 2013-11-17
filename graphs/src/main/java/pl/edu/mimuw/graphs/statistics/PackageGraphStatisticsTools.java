@@ -97,16 +97,22 @@ public class PackageGraphStatisticsTools {
 
 	public void countData(String projectName, String resultsDirPath, Graph graph) {
 		LOGGER.info("Import started");
-		coundData(projectName, resultsDirPath, graph);
+
+		try {
+			coundData(projectName, resultsDirPath, graph);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		graph.shutdown();
 
 	}
 
-	public void coundData(String projectName, String resultsDirPath, Graph graph) {
+	public void coundData(String projectName, String resultsDirPath, Graph graph) throws Exception {
 		coundData(projectName, resultsDirPath, graph, "");
 	}
 
-	public void coundData(String projectName, String resultsDirPath, Graph graph, String infix) {
+	public void coundData(String projectName, String resultsDirPath, Graph graph, String infix) throws Exception {
 		GraphStatisticsSummaries graphStatisticsSummaries = gatherStatistics(graph);
 
 		exporData(projectName, resultsDirPath, graph, infix, graphStatisticsSummaries);
@@ -159,7 +165,7 @@ public class PackageGraphStatisticsTools {
 	}
 
 	public void exporData(String projectName, String resultsDirPath, Graph graph, String infix,
-			GraphStatisticsSummaries graphStatisticsSummaries) {
+			GraphStatisticsSummaries graphStatisticsSummaries) throws Exception {
 		MagnifyExporter magnifyExporter = new MagnifyExporter();
 		LOGGER.info("Magnify export started");
 

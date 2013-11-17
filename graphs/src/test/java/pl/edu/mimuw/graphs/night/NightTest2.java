@@ -30,15 +30,15 @@ public class NightTest2 {
 
 	@Ignore
 	@Test
-	public void nightTest() {
-		// allDataRunButAddOnlyNewProjects();
+	public void nightTest() throws Exception {
+		allDataRunButAddOnlyNewProjects();
 		createSummaryReport();
-		// generateMagnifyJSONSForPackagageGraphs();
+		generateMagnifyJSONSForPackagageGraphs();
 	}
 
 	@Ignore
 	@Test
-	public void exportDataAndGenerateMagnifyJSONSForPackagageGraphs() {
+	public void exportDataAndGenerateMagnifyJSONSForPackagageGraphs() throws Exception {
 		File dataDir = new File(DATA_PATH + DB);
 		File[] projectsToAnalyze = dataDir.listFiles();
 		for (File f : projectsToAnalyze) {
@@ -65,7 +65,7 @@ public class NightTest2 {
 		}
 	}
 
-	public void generateMagnifyJSONSForPackagageGraphs() {
+	public void generateMagnifyJSONSForPackagageGraphs() throws Exception {
 		File dataDir = new File(DATA_PATH + DB);
 		File[] projectsToAnalyze = dataDir.listFiles();
 		for (File f : projectsToAnalyze) {

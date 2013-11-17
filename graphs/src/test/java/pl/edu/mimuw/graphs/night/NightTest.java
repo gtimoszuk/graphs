@@ -1,5 +1,8 @@
 package pl.edu.mimuw.graphs.night;
 
+import static pl.edu.mimuw.graphs.services.projects.ProjectsConstants.DB_SUFFIX;
+import static pl.edu.mimuw.graphs.services.projects.ProjectsConstants.RESULTS_SUFFIX;
+
 import java.io.File;
 
 import org.junit.Ignore;
@@ -20,10 +23,6 @@ public class NightTest {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(NightTest.class);
 
-	private final static String DB = "db/";
-	private final static String RESULTS = "results/";
-	// private final static String DATA_PATH =
-	// "/home/ballo0/GTI/PHD/callCountExp/";
 	private final static String DATA_PATH = "/home/ballo0/GTI/PHD/iter1/";
 
 	private final GraphShrinkerToPackagesOnlyGraph graphShrinker = new GraphShrinkerToPackagesOnlyGraph();
@@ -31,7 +30,7 @@ public class NightTest {
 	private final PackageGraphStatisticsTools graphStatisticsTools = new PackageGraphStatisticsTools();
 
 	@Test
-	public void nightTest() {
+	public void nightTest() throws Exception {
 		allDataRunButAddOnlyNewProjects();
 		createSummaryReport();
 		generateMagnifyJSONSForPackagageGraphs();
@@ -39,8 +38,8 @@ public class NightTest {
 
 	@Ignore
 	@Test
-	public void exportDataAndGenerateMagnifyJSONSForPackagageGraphs() {
-		File dataDir = new File(DATA_PATH + DB);
+	public void exportDataAndGenerateMagnifyJSONSForPackagageGraphs() throws Exception {
+		File dataDir = new File(DATA_PATH + DB_SUFFIX);
 		File[] projectsToAnalyze = dataDir.listFiles();
 		for (File f : projectsToAnalyze) {
 			String absolutePath = f.getAbsolutePath();
@@ -51,8 +50,8 @@ public class NightTest {
 
 				LOGGER.info("processing of project {} start", projectName);
 
-				String resultsDirPath = DATA_PATH + RESULTS + projectName + "/";
-				Graph graph = new Neo4jGraph(DATA_PATH + DB + projectName);
+				String resultsDirPath = DATA_PATH + RESULTS_SUFFIX + projectName + "/";
+				Graph graph = new Neo4jGraph(DATA_PATH + DB_SUFFIX + projectName);
 				graphStatisticsTools.exporData(projectName, resultsDirPath, graph, "",
 						graphStatisticsTools.getGraphStatisticsOndifferentLevel(graph));
 				Graph newGraph = graphShrinker.shrinkGraph(graph);
@@ -66,8 +65,8 @@ public class NightTest {
 		}
 	}
 
-	public void generateMagnifyJSONSForPackagageGraphs() {
-		File dataDir = new File(DATA_PATH + DB);
+	public void generateMagnifyJSONSForPackagageGraphs() throws Exception {
+		File dataDir = new File(DATA_PATH + DB_SUFFIX);
 		File[] projectsToAnalyze = dataDir.listFiles();
 		for (File f : projectsToAnalyze) {
 			String absolutePath = f.getAbsolutePath();
@@ -78,8 +77,8 @@ public class NightTest {
 
 				LOGGER.info("processing of project {} start", projectName);
 
-				String resultsDirPath = DATA_PATH + RESULTS + projectName + "/";
-				Graph graph = new Neo4jGraph(DATA_PATH + DB + projectName);
+				String resultsDirPath = DATA_PATH + RESULTS_SUFFIX + projectName + "/";
+				Graph graph = new Neo4jGraph(DATA_PATH + DB_SUFFIX + projectName);
 				Graph newGraph = graphShrinker.shrinkGraph(graph);
 				graph.shutdown();
 

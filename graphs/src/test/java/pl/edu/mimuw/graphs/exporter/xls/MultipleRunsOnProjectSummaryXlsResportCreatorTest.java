@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+//FIXME:GTI split to test and tool 
 public class MultipleRunsOnProjectSummaryXlsResportCreatorTest {
 
 	static final Logger LOGGER = LoggerFactory.getLogger(MultipleRunsOnProjectSummaryXlsResportCreatorTest.class);

@@ -1,8 +1,10 @@
 package pl.edu.mimuw.graphs.exporter.magnify;
 
+import static pl.edu.mimuw.graphs.services.projects.ProjectsConstants.DB_SUFFIX;
+import static pl.edu.mimuw.graphs.services.projects.ProjectsConstants.RESULTS_SUFFIX;
+
 import java.io.File;
 
-import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,21 +15,23 @@ import pl.edu.mimuw.graphs.transformations.GraphShrinkerToPackagesOnlyGraph;
 import com.tinkerpop.blueprints.Graph;
 import com.tinkerpop.blueprints.impls.neo4j.Neo4jGraph;
 
-public class ExportMagnifyPackageOnlyGraphFromDBs {
+/**
+ * Simple utility tool that scans a directory finds all projects and then
+ * creates proper magnify JSON for every project
+ * 
+ * @author gtimoszuk
+ * 
+ */
+public class MagnifyPackageOnlyJSONFromDBExporter {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(ExportMagnifyPackageOnlyGraphFromDBs.class);
-
-	private final static String DB = "db/";
-	private final static String RESULTS = "results/";
+	private static final Logger LOGGER = LoggerFactory.getLogger(MagnifyPackageOnlyJSONFromDBExporter.class);
 
 	private final GraphShrinkerToPackagesOnlyGraph graphShrinker = new GraphShrinkerToPackagesOnlyGraph();
 
 	private final PackageGraphStatisticsTools graphStatisticsTools = new PackageGraphStatisticsTools();
 
-	@Test
-	public void generateMagnifyJSONSForPackagageGraphs() {
-		String path = "/home/ballo0/GTI/PHD/iter1/";
-		File dataDir = new File(path + DB);
+	public void generateMagnifyJSONSForPackagageGraphs(String path) throws Exception {
+		File dataDir = new File(path + DB_SUFFIX);
 		File[] projectsToAnalyze = dataDir.listFiles();
 		for (File f : projectsToAnalyze) {
 			String absolutePath = f.getAbsolutePath();
@@ -38,8 +42,8 @@ public class ExportMagnifyPackageOnlyGraphFromDBs {
 
 				LOGGER.info("processing of project {} start", projectName);
 
-				String resultsDirPath = path + RESULTS + projectName + "/";
-				Graph graph = new Neo4jGraph(path + DB + projectName);
+				String resultsDirPath = path + RESULTS_SUFFIX + projectName + "/";
+				Graph graph = new Neo4jGraph(path + DB_SUFFIX + projectName);
 				Graph newGraph = graphShrinker.shrinkGraph(graph);
 				graph.shutdown();
 

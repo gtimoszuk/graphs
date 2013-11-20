@@ -17,8 +17,8 @@ import pl.edu.mimuw.graphs.importer.packages.graph.PackageGraphImporter;
 
 @Configuration
 @PropertySource(value = { "classpath:pl/edu/mimuw/graphs/conf/graphs.properties",
-		"file:///home/ballo0/GTI/graphs/conf/graphsLocal.properties",
-		"file:///home/alumni/g/gtimoszuk/PHD/graphs/conf/graphsDuch.properties" }, ignoreResourceNotFound = true)
+		"file:/home/ballo0/GTI/graphs/conf/graphsLocal.properties",
+		"file:/home/alumni/g/gtimoszuk/PHD/graphs/conf/graphsDuch.properties" }, ignoreResourceNotFound = true)
 public class BaseTestConfig {
 
 	static final Logger LOGGER = LoggerFactory.getLogger(BaseTestConfig.class);

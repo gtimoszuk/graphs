@@ -14,9 +14,12 @@ subprojects {
         repositories {
                 mavenLocal()
                 mavenCentral()
-                mavenRepo urls: "http://repository.jboss.org/maven2-brew/"
-                mavenRepo urls: "http://repository.jboss.com/maven2/"
-                mavenRepo urls: "http://tinkerpop.com/maven2"
+                maven {
+		    url "http://repository.jboss.org/maven2-brew/"
+		    url "http://repository.jboss.com/maven2/"
+		    url "http://tinkerpop.com/maven2"
+		    url "http://repo.spring.io/milestone"
+                }
 
 
         }

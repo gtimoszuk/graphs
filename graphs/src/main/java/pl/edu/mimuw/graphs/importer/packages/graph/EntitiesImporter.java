@@ -27,7 +27,7 @@ public class EntitiesImporter {
 
 	private final SimpleSequence sequence;
 
-	static final Logger LOGGER = LoggerFactory.getLogger(PackagesImporter.class);
+	static final Logger LOGGER = LoggerFactory.getLogger(EntitiesImporter.class);
 
 	public EntitiesImporter(Map<String, Vertex> packagesMap, Map<String, String> classPackageMap, Graph graph,
 			SimpleSequence sequence) {
@@ -51,7 +51,7 @@ public class EntitiesImporter {
 			}
 
 			for (Entry<String, Vertex> e : packagesMap.entrySet()) {
-				LOGGER.info(e.getKey());
+				LOGGER.trace(e.getKey());
 			}
 			LOGGER.trace(entry.getValue());
 			LOGGER.trace(packagesMap.get(entry.getValue()).toString());

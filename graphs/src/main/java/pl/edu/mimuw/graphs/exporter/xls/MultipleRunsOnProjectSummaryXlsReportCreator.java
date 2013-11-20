@@ -65,7 +65,7 @@ public class MultipleRunsOnProjectSummaryXlsReportCreator {
 	 * @param reportName
 	 */
 	public void createReport(String path, String reportName) {
-		LOGGER.info("working on report:");
+		LOGGER.info("working on report: {} for path {}", reportName, path);
 		File dataDir = new File(path + DB);
 		File[] projectsToAnalyze = dataDir.listFiles();
 		for (File f : projectsToAnalyze) {

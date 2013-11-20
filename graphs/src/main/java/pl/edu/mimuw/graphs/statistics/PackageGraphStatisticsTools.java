@@ -13,11 +13,11 @@ import java.io.IOException;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import pl.edu.mimuw.graphs.exporter.magnify.MagnifyExporter;
 import pl.edu.mimuw.graphs.exporter.xls.GraphDataAndStatsToXlsExporter;
 import pl.edu.mimuw.graphs.importer.packages.graph.GraphImporter;
+import pl.edu.mimuw.graphs.importer.packages.graph.PackageGraphImporter;
 import pl.edu.mimuw.graphs.metrics.AfferentCouplingCalculator;
 import pl.edu.mimuw.graphs.metrics.CallsFromOtherPackagesCalculator;
 import pl.edu.mimuw.graphs.metrics.CallsToOtherPackagesCalculator;
@@ -39,8 +39,9 @@ public class PackageGraphStatisticsTools {
 
 	private final GraphDataAndStatsToXlsExporter graphDataAndStatsToXlsExporter = new GraphDataAndStatsToXlsExporter();
 
-	@Autowired
-	private GraphImporter importer;
+	// @Autowired
+	// @Qualifier("graphImporter")
+	public GraphImporter graphImporter = new PackageGraphImporter();
 
 	public void countOneDirStatsIfProjectIsNew(String workingDir, String projectName, boolean ifToSaveDB) {
 		String dataDirPath = workingDir + DATA_SUFFIX + projectName + "/";
@@ -54,12 +55,12 @@ public class PackageGraphStatisticsTools {
 		LOGGER.info("Work starting with {}", projectName);
 
 		if (!ifToSaveDB) {
-			Graph graph = importer.importGraph(dataDirPath);
+			Graph graph = graphImporter.importGraph(dataDirPath);
 			countData(projectName, resultsDirPath, graph);
 		} else {
 			File dbDir = new File(dbDirPath);
 			if (!dbDir.exists()) {
-				Graph graph = importer.importGraph(dataDirPath, dataDirPath);
+				Graph graph = graphImporter.importGraph(dataDirPath, dbDirPath);
 				countData(projectName, resultsDirPath, graph);
 			} else {
 				LOGGER.info("Project already processed. Exiiting");
@@ -81,7 +82,7 @@ public class PackageGraphStatisticsTools {
 		// setting up importer and cleaning dirs
 		Graph graph = null;
 		if (!ifToSaveDB) {
-			graph = importer.importGraph(dataDirPath);
+			graph = graphImporter.importGraph(dataDirPath);
 		} else {
 			File dbDir = new File(dbDirPath);
 			try {
@@ -89,7 +90,7 @@ public class PackageGraphStatisticsTools {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			graph = importer.importGraph(dataDirPath, dbDirPath);
+			graph = graphImporter.importGraph(dataDirPath, dbDirPath);
 		}
 		countData(projectName, resultsDirPath, graph);
 
@@ -187,7 +188,7 @@ public class PackageGraphStatisticsTools {
 
 		LOGGER.info("Work starting with {}", projectName);
 
-		Graph graph = importer.importGraph(projectPath);
+		Graph graph = graphImporter.importGraph(projectPath);
 		countData(projectName, resultsDirPath, graph);
 
 	}

@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import pl.edu.mimuw.graphs.importer.packages.graph.PackageGraphImporter;
+import pl.edu.mimuw.graphs.importer.packages.graph.GraphImporter;
 
 import com.tinkerpop.blueprints.Graph;
 import com.tinkerpop.blueprints.Vertex;
@@ -26,7 +26,7 @@ public class AfferentCouplingCalculatorTest {
 	private final Logger LOGGER = LoggerFactory.getLogger(AfferentCouplingCalculatorTest.class);
 
 	@Autowired
-	public PackageGraphImporter importer;
+	public GraphImporter importer;
 
 	@Resource(name = "junitSimpleDataDir")
 	public String jutniDir;

@@ -99,6 +99,7 @@ public class NightTest2 {
 
 	public void allDataRunButAddOnlyNewProjects() {
 		File dataDir = new File(dataPath + "data/");
+		LOGGER.info("data path: {}", dataPath);
 		File[] projectsToAnalyze = dataDir.listFiles();
 		for (File f : projectsToAnalyze) {
 			String absolutePath = f.getAbsolutePath();

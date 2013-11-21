@@ -216,26 +216,24 @@ public class MultipleRunsOnProjectSummaryXlsReportCreator {
 	}
 
 	private String createShortLabel(String projectName) {
-		String[] firstSplit = projectName.split("-");
-		if (firstSplit.length < 2) {
-			return projectName;
-		} else {
-			String[] nameSplitted = firstSplit[1].split("_");
-			String shortName = shorNameForOps(nameSplitted[0]) + "_" + nameSplitted[2];
-			return shortName;
-		}
+		return projectName;
+		/*
+		 * String[] firstSplit = projectName.split("-"); if (firstSplit.length <
+		 * 2) { return projectName; } else { String[] nameSplitted =
+		 * firstSplit[1].split("_"); String shortName =
+		 * shorNameForOps(nameSplitted[0]) + "_" + nameSplitted[2]; return
+		 * shortName; }
+		 */
 
 	}
 
-	private String shorNameForOps(String string) {
-		if ("move".equals(string)) {
-			return "m";
-		} else if ("swap".equals(string)) {
-			return "s";
-		} else {
-			return "ms";
-		}
-	}
+	/*
+	 * private String shorNameForOps(String string) { if ("move".equals(string))
+	 * { return "m"; } else if ("swap".equals(string)) { return "s"; } else {
+	 * return "ms"; }
+	 * 
+	 * }
+	 */
 
 	private Map<String, String> reorderProjectFamilinyNames(List<String> list) {
 		Map<String, String> result = new HashMap<String, String>();
